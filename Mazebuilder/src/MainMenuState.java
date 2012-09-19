@@ -5,38 +5,42 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * This is the main gameplay loop - gameboard, player movement, etc, should all be in here.
+ * The main menu loop.
  * 
- * @author dxiao
+ * @author xiao
  */
-public class GameplayState extends BasicGameState {
-	
-	static public final int ID = 1;
+public class MainMenuState extends BasicGameState {
 
-	/** Write initialization for the board here */
+	static public final int ID = 0;
+	
+	private StateBasedGame game;
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-
+		this.game = game;
 	}
 
-	/** Each rendering step, draw the game here */
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-        g.drawString("Hello, Mazebuilder! [Gameplay]", 50, 100);
+        g.drawString("Hello, Mazebuilder! [MainMenu]", 50, 100);
 	}
 
-	/** Each logic step, poll inputs and compute game logic here */
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-
+	}
+	
+	@Override
+	public void mouseClicked(int button, int x, int y, int clickCount) {
+		game.enterState(GameplayState.ID);
 	}
 
 	@Override
 	public int getID() {
-		return ID;
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

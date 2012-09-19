@@ -12,6 +12,7 @@ public class MazebuilderGame extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
+		addState(new MainMenuState());
 		addState(new GameplayState());
 	}
 

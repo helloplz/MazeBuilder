@@ -1,9 +1,13 @@
+package com.mazebuilder.root;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-
+/**
+ * 
+ * @author dxiao
+ */
 public class MazebuilderGame extends StateBasedGame {
 
 	public MazebuilderGame() {

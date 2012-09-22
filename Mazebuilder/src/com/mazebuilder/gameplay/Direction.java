@@ -17,4 +17,19 @@ public enum Direction {
         return value;
     }
     
+    public Direction reverse() {
+        switch(value) {
+            case 1:
+                return RIGHT;
+            case 2:
+                return DOWN;
+            case 4:
+                return LEFT;
+            case 8:
+                return UP;
+            default:
+                throw new RuntimeException("Unknown value " + value);
+        }
+    }
+    
 }

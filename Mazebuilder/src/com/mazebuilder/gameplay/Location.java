@@ -6,4 +6,6 @@ public interface Location {
 	
 	int getColumn();
 	
+	Location move(Direction d);
+	
 }

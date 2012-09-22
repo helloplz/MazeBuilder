@@ -28,6 +28,6 @@ public interface Board extends Renderable {
 	/**
 	 * Sets a wall on the given tile, in the direction given. Returns true if the wall was successfully set, false otherwise (if a wall is already there).
 	 */
-	boolean setWall(Location l, Direction d);
+	boolean putWall(Location l, Direction d);
 	
 }

@@ -1,6 +1,8 @@
 package com.mazebuilder.gameplay;
 
-public interface Board {
+import com.mazebuilder.renderer.Renderable;
+
+public interface Board extends Renderable {
 	
 	/** Number of tiles in the horizontal board direction. **/
 	int tilesAcross();

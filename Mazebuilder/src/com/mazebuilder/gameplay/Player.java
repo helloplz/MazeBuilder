@@ -1,8 +1,9 @@
 package com.mazebuilder.gameplay;
 
 import com.google.common.collect.Multiset;
+import com.mazebuilder.renderer.Renderable;
 
-public interface Player {
+public interface Player extends Renderable {
 	
 	String getName();
 	

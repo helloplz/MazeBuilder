@@ -1,4 +1,7 @@
-package com.mazebuilder.gameplay;
+package com.mazebuilder.gameplay.board;
+
+import com.mazebuilder.gameplay.Direction;
+import com.mazebuilder.gameplay.Location;
 
 public interface WallContainer {
     

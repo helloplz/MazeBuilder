@@ -1,4 +1,4 @@
-package com.mazebuilder.gameplay;
+package com.mazebuilder.gameplay.players;
 
 import java.util.Random;
 
@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import com.google.common.collect.EnumMultiset;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
+import com.mazebuilder.gameplay.Direction;
 import com.mazebuilder.renderer.PlayerRenderer;
 
 public final class ChaserPlayer implements Player {

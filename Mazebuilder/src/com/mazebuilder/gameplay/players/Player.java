@@ -1,6 +1,7 @@
-package com.mazebuilder.gameplay;
+package com.mazebuilder.gameplay.players;
 
 import com.google.common.collect.Multiset;
+import com.mazebuilder.gameplay.Direction;
 import com.mazebuilder.renderer.Renderable;
 
 public interface Player extends Renderable {

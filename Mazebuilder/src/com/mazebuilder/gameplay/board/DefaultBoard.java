@@ -1,4 +1,4 @@
-package com.mazebuilder.gameplay;
+package com.mazebuilder.gameplay.board;
 
 import java.util.Map;
 
@@ -7,6 +7,10 @@ import org.newdawn.slick.Graphics;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
+import com.mazebuilder.gameplay.Direction;
+import com.mazebuilder.gameplay.Location;
+import com.mazebuilder.gameplay.SimpleLocation;
+import com.mazebuilder.gameplay.players.Player;
 import com.mazebuilder.renderer.BoardRenderer;
 
 public final class DefaultBoard implements Board {

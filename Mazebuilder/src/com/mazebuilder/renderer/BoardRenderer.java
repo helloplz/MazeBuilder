@@ -2,7 +2,7 @@ package com.mazebuilder.renderer;
 
 import org.newdawn.slick.Graphics;
 
-import com.mazebuilder.gameplay.Player;
+import com.mazebuilder.gameplay.players.Player;
 
 public interface BoardRenderer {
 

@@ -1,5 +1,8 @@
-package com.mazebuilder.gameplay;
+package com.mazebuilder.gameplay.board;
 
+import com.mazebuilder.gameplay.Direction;
+import com.mazebuilder.gameplay.Location;
+import com.mazebuilder.gameplay.players.Player;
 import com.mazebuilder.renderer.Renderable;
 
 public interface Board extends Renderable {

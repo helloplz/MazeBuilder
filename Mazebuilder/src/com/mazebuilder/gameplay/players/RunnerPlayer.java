@@ -1,9 +1,10 @@
-package com.mazebuilder.gameplay;
+package com.mazebuilder.gameplay.players;
 
 import org.newdawn.slick.Graphics;
 
 import com.google.common.collect.EnumMultiset;
 import com.google.common.collect.Multiset;
+import com.mazebuilder.gameplay.Direction;
 import com.mazebuilder.renderer.PlayerRenderer;
 
 public final class RunnerPlayer implements Player {

@@ -2,6 +2,8 @@ package com.mazebuilder.renderer;
 
 import org.newdawn.slick.Graphics;
 
+import com.mazebuilder.gameplay.Player;
+
 public interface BoardRenderer {
 
     int tileHeight();
@@ -35,4 +37,9 @@ public interface BoardRenderer {
      * Draw the sprite for a corner (the intersection of walls). Width and height are specified by wallWidth() and wallHeight(), respectively.
      */
     void drawCorner(Graphics g, int x, int y);
+
+    /**
+     * Draw the sprite for the given player.
+     */
+    void drawPlayer(Player p, Graphics g, int x, int y);
 }

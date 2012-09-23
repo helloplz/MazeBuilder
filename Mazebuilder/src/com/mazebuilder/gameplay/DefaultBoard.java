@@ -22,16 +22,11 @@ public final class DefaultBoard implements Board {
         walls = new BitmaskWallContainer(tilesDown, tilesAcross);
     }
 
-    @Override
-    public void render(Graphics g, int xOffset, int yOffset) {
-        int x, y;
-        x = xOffset;
-        y = yOffset;
-
+    private void renderTileRow(Graphics g, int x, int y, int row) {
         renderer.drawTile(g, x, y);
         x += renderer.tileWidth();
         for (int j = 1; j < tilesAcross; j++) {
-            if (walls.isWall(new SimpleLocation(0, j), Direction.LEFT)) {
+            if (walls.isWall(new SimpleLocation(row, j), Direction.LEFT)) {
                 renderer.drawWall(g, x, y, false);
             } else {
                 renderer.drawNoWall(g, x, y, false);
@@ -40,43 +35,52 @@ public final class DefaultBoard implements Board {
             renderer.drawTile(g, x, y);
             x += renderer.tileWidth();
         }
-        y += renderer.tileHeight();
-        x = xOffset;
+    }
 
-        for (int i = 1; i < tilesDown; i++) {
-            if (walls.isWall(new SimpleLocation(i - 1, 0), Direction.DOWN)) {
+    private void renderWallRow(Graphics g, int x, int y, int rowAbove) {
+        if (walls.isWall(new SimpleLocation(rowAbove, 0), Direction.DOWN)) {
+            renderer.drawWall(g, x, y, true);
+        } else {
+            renderer.drawNoWall(g, x, y, true);
+        }
+        x += renderer.tileWidth();
+        for (int j = 1; j < tilesAcross; j++) {
+            renderer.drawCorner(g, x, y);
+            x += renderer.wallShortSideLength();
+            if (walls.isWall(new SimpleLocation(rowAbove, j), Direction.DOWN)) {
                 renderer.drawWall(g, x, y, true);
             } else {
                 renderer.drawNoWall(g, x, y, true);
             }
             x += renderer.tileWidth();
-            for (int j = 1; j < tilesAcross; j++) {
-                renderer.drawCorner(g, x, y);
-                x += renderer.wallShortSideLength();
-                if (walls.isWall(new SimpleLocation(i - 1, j), Direction.DOWN)) {
-                    renderer.drawWall(g, x, y, true);
-                } else {
-                    renderer.drawNoWall(g, x, y, true);
-                }
-                x += renderer.tileWidth();
-            }
+        }
+    }
+
+    @Override
+    public void render(Graphics g, int xOffset, int yOffset) {
+        int x, y;
+        x = xOffset;
+        y = yOffset;
+
+        renderTileRow(g, x, y, 0);
+        y += renderer.tileHeight();
+        x = xOffset;
+
+        for (int i = 1; i < tilesDown; i++) {
+            renderWallRow(g, x, y, i - 1);
             y += renderer.wallShortSideLength();
             x = xOffset;
 
-            renderer.drawTile(g, x, y);
-            x += renderer.tileWidth();
-            for (int j = 1; j < tilesAcross; j++) {
-                if (walls.isWall(new SimpleLocation(i, j), Direction.LEFT)) {
-                    renderer.drawWall(g, x, y, false);
-                } else {
-                    renderer.drawNoWall(g, x, y, false);
-                }
-                x += renderer.wallShortSideLength();
-                renderer.drawTile(g, x, y);
-                x += renderer.tileWidth();
-            }
+            renderTileRow(g, x, y, i);
             y += renderer.tileHeight();
             x = xOffset;
+        }
+
+        for (Map.Entry<Player, Location> e : players.entrySet()) {
+            int row = e.getValue().getRow();
+            int column = e.getValue().getColumn();
+            e.getKey().render(g, xOffset + (column * renderer.tileWidth()) + ((column - 1) * renderer.wallShortSideLength()),
+                    yOffset + (row * renderer.tileHeight()) + ((row - 1) * renderer.wallShortSideLength()));
         }
     }
 

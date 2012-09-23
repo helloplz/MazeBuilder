@@ -110,7 +110,30 @@ public final class DefaultBoard implements Board {
 
     @Override
     public Location jumpPlayer(Player p, Direction d, Direction... bonusesToSpend) {
-        throw new RuntimeException("Not implemented.");
+        Preconditions.checkArgument(p.canJump(), "Player " + p.getName() + " cannot jump walls.");
+        Location l = getPlayerLocation(p);
+        if (walls.isWall(l, d)) {
+            Location moved = l.move(d);
+            if (isBoardLocation(moved)) {
+                Preconditions.checkArgument(bonusesToSpend.length == p.bonusesToJump());
+                if (p.bonusesEqual() && bonusesToSpend.length > 0) {
+                    Preconditions.checkNotNull(bonusesToSpend[0]);
+                    Direction b = bonusesToSpend[0];
+                    for (Direction bonus : bonusesToSpend) {
+                        if (!b.equals(bonus)) {
+                            return l;
+                        }
+                    }
+                }
+
+                for (Direction bonus : bonusesToSpend) {
+                    p.spendBonus(bonus);
+                }
+                l = moved;
+                players.put(p, l);
+            }
+        }
+        return l;
     }
 
     @Override

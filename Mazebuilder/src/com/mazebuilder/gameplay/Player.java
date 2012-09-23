@@ -18,6 +18,9 @@ public interface Player extends Renderable {
     /** Returns the number of bonuses the player needs to spend to jump a wall **/
     int bonusesToJump();
 
+    /** Returns true if the bonuses spent to jump should be equal, or false otherwise. **/
+    boolean bonusesEqual();
+
     /** Removes a bonus from the player. **/
     boolean spendBonus(Direction d);
 

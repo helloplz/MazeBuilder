@@ -5,6 +5,7 @@ import java.util.Map;
 import org.newdawn.slick.Graphics;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import com.mazebuilder.renderer.BoardRenderer;
 
@@ -105,6 +106,20 @@ public final class DefaultBoard implements Board {
         if (!walls.isWall(l, d)) {
             Location moved = l.move(d);
             if (isBoardLocation(moved)) {
+                l = moved;
+                players.put(p, l);
+            }
+        }
+        return l;
+    }
+
+    @Override
+    public Location movePlayerWithBonus(Player p, Direction d) {
+        Preconditions.checkArgument(p.canJump(), "Player " + Strings.nullToEmpty(p.getName()) + " cannot jump.");
+        Location l = getPlayerLocation(p);
+        if (!walls.isWall(l, d)) {
+            Location moved = l.move(d);
+            if (isBoardLocation(moved) && p.spendBonus(d)) {
                 l = moved;
                 players.put(p, l);
             }

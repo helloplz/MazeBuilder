@@ -31,8 +31,8 @@ public final class ChaserPlayer implements Player {
     }
 
     @Override
-    public void render(Graphics g, int xOffset, int yOffset) {
-        renderer.drawPlayer(g, xOffset, yOffset);
+    public void render(Graphics g, int x, int y, int tileWidth, int tileHeight) {
+        renderer.drawPlayer(g, x, y, tileWidth, tileHeight);
     }
 
     @Override

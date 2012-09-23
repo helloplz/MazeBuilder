@@ -1,10 +1,11 @@
 package com.mazebuilder.gameplay.players;
 
+import org.newdawn.slick.Graphics;
+
 import com.google.common.collect.Multiset;
 import com.mazebuilder.gameplay.Direction;
-import com.mazebuilder.renderer.Renderable;
 
-public interface Player extends Renderable {
+public interface Player {
 
     String getName();
 
@@ -25,4 +26,5 @@ public interface Player extends Renderable {
     /** Removes a bonus from the player. Returns true if the bonus was successfully removed, or false otherwise. **/
     boolean spendBonus(Direction d);
 
+    void render(Graphics g, int xOffset, int yOffset, int tileWidth, int tileHeight);
 }

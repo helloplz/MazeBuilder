@@ -2,8 +2,6 @@ package com.mazebuilder.renderer;
 
 import org.newdawn.slick.Graphics;
 
-import com.mazebuilder.gameplay.players.Player;
-
 public interface BoardRenderer {
 
     int tileHeight();
@@ -38,8 +36,4 @@ public interface BoardRenderer {
      */
     void drawCorner(Graphics g, int x, int y);
 
-    /**
-     * Draw the sprite for the given player.
-     */
-    void drawPlayer(Player p, Graphics g, int x, int y);
 }

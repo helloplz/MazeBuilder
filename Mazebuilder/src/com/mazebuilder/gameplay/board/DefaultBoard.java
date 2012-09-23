@@ -85,7 +85,8 @@ public final class DefaultBoard implements Board {
             int row = e.getValue().getRow();
             int column = e.getValue().getColumn();
             e.getKey().render(g, xOffset + (column * renderer.tileWidth()) + ((column - 1) * renderer.wallShortSideLength()),
-                    yOffset + (row * renderer.tileHeight()) + ((row - 1) * renderer.wallShortSideLength()));
+                    yOffset + (row * renderer.tileHeight()) + ((row - 1) * renderer.wallShortSideLength()), renderer.tileWidth(),
+                    renderer.tileHeight());
         }
     }
 

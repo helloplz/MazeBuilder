@@ -4,6 +4,6 @@ import org.newdawn.slick.Graphics;
 
 public interface PlayerRenderer {
 
-    void drawPlayer(Graphics g, int x, int y);
+    void drawPlayer(Graphics g, int x, int y, int tileWidth, int tileHeight);
 
 }

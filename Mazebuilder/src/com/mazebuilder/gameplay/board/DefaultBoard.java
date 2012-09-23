@@ -84,9 +84,9 @@ public final class DefaultBoard implements Board {
         for (Map.Entry<Player, Location> e : players.entrySet()) {
             int row = e.getValue().getRow();
             int column = e.getValue().getColumn();
-            e.getKey().render(g, xOffset + (column * renderer.tileWidth()) + ((column - 1) * renderer.wallShortSideLength()),
-                    yOffset + (row * renderer.tileHeight()) + ((row - 1) * renderer.wallShortSideLength()), renderer.tileWidth(),
-                    renderer.tileHeight());
+            x = xOffset + (column * (renderer.tileWidth() + renderer.wallShortSideLength()));
+            y = yOffset + (row * (renderer.tileHeight() + renderer.wallShortSideLength()));
+            e.getKey().render(g, x, y, renderer.tileWidth(), renderer.tileHeight());
         }
     }
 
@@ -174,6 +174,13 @@ public final class DefaultBoard implements Board {
         r = l.getRow();
         c = l.getColumn();
         return (r >= 0 && c >= 0 && r < tilesDown && c < tilesAcross);
+    }
+
+    @Override
+    public void addPlayerAtLocation(Player p, Location l) {
+        Preconditions.checkNotNull(p, "Player cannot be null.");
+        Preconditions.checkArgument(!players.containsKey(p), "Player " + Strings.emptyToNull(p.getName()) + " already exists on this board.");
+        players.put(p, l);
     }
 
 }

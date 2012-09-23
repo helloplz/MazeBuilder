@@ -13,6 +13,9 @@ public interface Board extends Renderable {
     /** Number of tiles in the vertical board direction. **/
     int tilesDown();
 
+    /** Adds a new player at the given location. Will throw exceptions if adding an existing player. **/
+    void addPlayerAtLocation(Player p, Location l);
+
     /** Returns the location of the given player. Uses identity (==) comparisons. **/
     Location getPlayerLocation(Player p);
 

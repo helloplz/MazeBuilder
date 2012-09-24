@@ -20,16 +20,16 @@ public interface Board extends Renderable {
     Location getPlayerLocation(Player p);
 
     /**
-     * Returns the new location of the given player. Will return true if the move was completed. Does not jump walls. Uses identity (==)
+     * Will return true if the move was completed. Does not jump walls. Uses identity (==)
      * comparisons.
      **/
     boolean movePlayer(Player p, Direction d);
 
     /**
-     * Returns the new location of the given player. Will return the same location if the move is impossible. Does not jump walls. Uses identity (==)
+     * Will return true if the move was completed. Does not jump walls. Uses identity (==)
      * comparisons.
      **/
-    Location movePlayerWithBonus(Player p, Direction d);
+    boolean movePlayerWithBonus(Player p, Direction d);
 
     /**
      * Returns the new location of the given player. Will return the same location if the move is impossible (player cannot jump or no wall to jump).

@@ -12,16 +12,18 @@ import com.mazebuilder.renderer.PlayerRenderer;
 
 public final class ChaserPlayer implements Player {
 
+    private static final boolean BONUSES_EQUAL = true;
+    private static final int BONUS_INTERVAL = 2;
+    private static final int BONUSES_TO_JUMP = 2;
+    private static final int MOVEMENTS_PER_TURN = 2;
+
     private final PlayerRenderer renderer;
     private final String name;
     private final Multiset<Direction> bonuses;
     private final Random rand;
 
     private int turnsToBonus = BONUS_INTERVAL;
-
-    private static final boolean BONUSES_EQUAL = true;
-    private static final int BONUS_INTERVAL = 2;
-    private static final int BONUSES_TO_JUMP = 2;
+    private int remainingMoves;
 
     public ChaserPlayer(PlayerRenderer renderer, String name) {
         this.renderer = renderer;
@@ -46,7 +48,9 @@ public final class ChaserPlayer implements Player {
     }
 
     @Override
-    public void executeTurn() {
+    public void startTurn() {
+        System.out.println("Chaser's turn!");
+        remainingMoves = MOVEMENTS_PER_TURN;
         turnsToBonus--;
         if (turnsToBonus == 0) {
             turnsToBonus = BONUS_INTERVAL;
@@ -65,6 +69,7 @@ public final class ChaserPlayer implements Player {
                 break;
             }
         }
+        System.out.println(getBonuses());
     }
 
     @Override
@@ -85,6 +90,16 @@ public final class ChaserPlayer implements Player {
     @Override
     public boolean spendBonus(Direction d) {
         return bonuses.remove(d);
+    }
+
+    @Override
+    public boolean canMove() {
+        return remainingMoves > 0;
+    }
+    
+    @Override
+    public int spendMove() {
+        return --remainingMoves;
     }
 
 }

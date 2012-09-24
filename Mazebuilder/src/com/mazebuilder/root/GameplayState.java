@@ -34,10 +34,14 @@ public class GameplayState extends BasicGameState {
     private static final int CHASER_YPOS = 6;
     private static final int INITIAL_WALLS_XPOS = 3;
     private static final int INITIAL_WALLS_YPOS = 3;
-
+    //private static final int CHASER_TURN_MILLIS = 5000;
+    
     private final Board board = new DefaultBoard(new SimpleBoardRenderer(), BOARD_WIDTH, BOARD_HEIGHT);
     private final Player runner = new RunnerPlayer(new RunnerPlayerRenderer(), "A");
     private final Player chaser = new ChaserPlayer(new ChaserPlayerRenderer(), "B");
+    
+    private int chaserTurnTimer;
+    
 
     /** Write initialization for the board here */
     @Override
@@ -46,6 +50,7 @@ public class GameplayState extends BasicGameState {
         board.addPlayerAtLocation(chaser, new SimpleLocation(CHASER_YPOS, CHASER_XPOS));
         board.putWall(new SimpleLocation(INITIAL_WALLS_YPOS, INITIAL_WALLS_XPOS), Direction.LEFT);
         board.putWall(new SimpleLocation(INITIAL_WALLS_YPOS, INITIAL_WALLS_XPOS), Direction.RIGHT);
+        runner.startTurn();
     }
 
     /** Each rendering step, draw the game here */
@@ -58,7 +63,14 @@ public class GameplayState extends BasicGameState {
     /** Each logic step, poll inputs and compute game logic here */
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-
+        /* For real time updates
+        chaserTurnTimer -= delta;
+        if (chaserTurnTimer < 0) {
+            chaser.startTurn();
+            System.out.println("chaser turn");
+            chaserTurnTimer = CHASER_TURN_MILLIS;
+        }
+        */
     }
 
     @Override
@@ -66,4 +78,33 @@ public class GameplayState extends BasicGameState {
         return ID;
     }
 
+    @Override
+	public void keyPressed(int key, char c) {
+        if (chaser.canMove()){
+            switch (c){
+            case 'w':
+                board.movePlayer(chaser, Direction.UP);
+                break;
+            case 'a':
+                board.movePlayer(chaser, Direction.LEFT);
+                break;
+            case 's':
+                board.movePlayer(chaser, Direction.DOWN);
+                break;
+            case 'd':
+                board.movePlayer(chaser, Direction.RIGHT);
+                break;
+            }
+        } else if (c == ' ') {
+            runner.startTurn();
+        } else if (c == '\n' || c == '\r') {
+            chaser.startTurn();
+        }
+	}
+    
+    private void movePlayer(Player player, Direction dir) {
+        if (board.movePlayer(player, dir)) {
+            player.startTurn();
+        }
+    }
 }

@@ -12,7 +12,7 @@ public interface Player {
     boolean canJump();
 
     /** Should be called every turn -- will handle matters such as generating movement bonuses etc. **/
-    void executeTurn();
+    void startTurn();
 
     /** Returns the set of bonuses for the player. **/
     Multiset<Direction> getBonuses();
@@ -27,4 +27,8 @@ public interface Player {
     boolean spendBonus(Direction d);
 
     void render(Graphics g, int xOffset, int yOffset, int tileWidth, int tileHeight);
+
+    boolean canMove();
+
+    int spendMove();
 }

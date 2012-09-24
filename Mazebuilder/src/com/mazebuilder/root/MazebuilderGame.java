@@ -26,6 +26,9 @@ public class MazebuilderGame extends StateBasedGame {
         AppGameContainer app = new AppGameContainer(new MazebuilderGame());
 
         app.setDisplayMode(1024, 768, false);
+        app.setMaximumLogicUpdateInterval(100);
+        app.setMinimumLogicUpdateInterval(10);
+        app.setTargetFrameRate(60);
         // app.setSmoothDeltas(true);
 
         app.start();

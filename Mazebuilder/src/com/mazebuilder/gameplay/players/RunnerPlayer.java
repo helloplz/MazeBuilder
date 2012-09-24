@@ -8,10 +8,16 @@ import com.mazebuilder.gameplay.Direction;
 import com.mazebuilder.renderer.PlayerRenderer;
 
 public final class RunnerPlayer implements Player {
+    
+    public static final int WALLS_PER_TURN = 1;
+    public static final int MOVES_PER_TURN = 1;
 
     private final PlayerRenderer renderer;
     private final String name;
     private final Multiset<Direction> bonuses;
+    
+    private int remainingMoves;
+    private int remainingWalls;
 
     public RunnerPlayer(PlayerRenderer renderer, String name) {
         this.renderer = renderer;
@@ -35,8 +41,10 @@ public final class RunnerPlayer implements Player {
     }
 
     @Override
-    public void executeTurn() {
-        // no-op
+    public void startTurn() {
+        System.out.println("Runner's turn!");
+        remainingWalls = WALLS_PER_TURN;
+        remainingMoves = MOVES_PER_TURN;
     }
 
     @Override
@@ -59,4 +67,21 @@ public final class RunnerPlayer implements Player {
         throw new RuntimeException("Cannot spend bonus - RunnerPlayer is not allowed to have bonuses.");
     }
 
+    @Override
+    public boolean canMove() {
+        return remainingMoves > 0;
+    }
+
+    @Override
+    public int spendMove() {
+        return --remainingMoves;
+    }
+    
+    public boolean canWall() {
+        return remainingWalls > 0;
+    }
+
+    public int spendWall() {
+        return --remainingWalls;
+    }
 }

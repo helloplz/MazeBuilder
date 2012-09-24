@@ -106,16 +106,17 @@ public final class DefaultBoard implements Board {
     }
 
     @Override
-    public Location movePlayer(Player p, Direction d) {
+    public boolean movePlayer(Player p, Direction d) {
         Location l = getPlayerLocation(p);
-        if (!walls.isWall(l, d)) {
+        if (p.canMove() && !walls.isWall(l, d)) {
             Location moved = l.move(d);
             if (isBoardLocation(moved)) {
-                l = moved;
-                players.put(p, l);
+                players.put(p, moved);
+                p.spendMove();
+                return true;
             }
         }
-        return l;
+        return false;
     }
 
     @Override

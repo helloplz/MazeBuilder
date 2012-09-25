@@ -7,6 +7,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.mazebuilder.gameplay.Direction;
+import com.mazebuilder.gameplay.Location;
 import com.mazebuilder.gameplay.SimpleLocation;
 import com.mazebuilder.gameplay.board.Board;
 import com.mazebuilder.gameplay.board.DefaultBoard;
@@ -37,8 +38,8 @@ public class GameplayState extends BasicGameState {
     //private static final int CHASER_TURN_MILLIS = 5000;
     
     private final Board board = new DefaultBoard(new SimpleBoardRenderer(), BOARD_WIDTH, BOARD_HEIGHT);
-    private final Player runner = new RunnerPlayer(new RunnerPlayerRenderer(), "A");
-    private final Player chaser = new ChaserPlayer(new ChaserPlayerRenderer(), "B");
+    private final RunnerPlayer runner = new RunnerPlayer(new RunnerPlayerRenderer(), "A");
+    private final ChaserPlayer chaser = new ChaserPlayer(new ChaserPlayerRenderer(), "B");
     
     private int chaserTurnTimer;
     
@@ -97,10 +98,31 @@ public class GameplayState extends BasicGameState {
             }
         } else if (c == ' ') {
             runner.startTurn();
-        } else if (c == '\n' || c == '\r') {
-            chaser.startTurn();
         }
-	}
+  	}
+    
+    @Override
+	public void mouseClicked(int button, int x, int y, int clickCount) {
+        if (runner.canMove()) {
+            Location loc = board.getTile(x-64,  y-64);
+            if (loc != null) {
+                Direction dir = board.getPlayerLocation(runner).isAdjacent(loc);
+                if (dir != null) {
+                    board.movePlayer(runner, dir);
+                }
+            }
+        } else if (runner.canWall()) {
+            Direction dir = board.getWallDirection(x-64, y-64);
+            Location loc = board.getTile(x-64,  y-64);
+            if (dir != null && loc != null) {
+                if (board.putWall(loc, dir)) {
+                    if (runner.spendWall() == 0) {
+                        chaser.startTurn();
+                    }
+                }
+            }
+        }
+    }
     
     private void movePlayer(Player player, Direction dir) {
         if (board.movePlayer(player, dir)) {

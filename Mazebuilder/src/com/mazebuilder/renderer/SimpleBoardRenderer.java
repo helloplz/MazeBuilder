@@ -3,6 +3,8 @@ package com.mazebuilder.renderer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
+import com.mazebuilder.gameplay.Location;
+
 public final class SimpleBoardRenderer implements BoardRenderer {
 
     private static final int TILE_HEIGHT = 64;
@@ -55,5 +57,4 @@ public final class SimpleBoardRenderer implements BoardRenderer {
         g.setColor(Color.green);
         g.fillRoundRect(x, y, WALL_SHORT_SIDE, WALL_SHORT_SIDE, 8);
     }
-
 }

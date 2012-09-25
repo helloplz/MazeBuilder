@@ -26,6 +26,29 @@ public final class DefaultBoard implements Board {
         this.tilesDown = tilesDown;
         walls = new BitmaskWallContainer(tilesDown, tilesAcross);
     }
+    
+    @Override
+    public Location getTile(int x, int y) {
+        x /= renderer.tileWidth() + renderer.wallShortSideLength();
+        y /= renderer.tileHeight() + renderer.wallShortSideLength();
+        if (x < 0 || y < 0 || x >= tilesAcross || y >= tilesDown) {
+            return null;
+        }
+        return new SimpleLocation(y, x);
+    }
+    
+    @Override
+    public Direction getWallDirection(int x, int y) {
+        x %= renderer.tileWidth() + renderer.wallShortSideLength();
+        y %= renderer.tileHeight() + renderer.wallShortSideLength();
+        if (x > renderer.tileWidth() && x > y) {
+            return Direction.RIGHT;
+        }
+        if (y > renderer.tileHeight() && y > x) {
+            return Direction.DOWN;
+        }
+        return null;
+    }
 
     private void renderTileRow(Graphics g, int x, int y, int row) {
         renderer.drawTile(g, x, y);

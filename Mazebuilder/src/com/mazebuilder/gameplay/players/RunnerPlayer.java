@@ -6,6 +6,7 @@ import com.google.common.collect.EnumMultiset;
 import com.google.common.collect.Multiset;
 import com.mazebuilder.gameplay.Direction;
 import com.mazebuilder.renderer.PlayerRenderer;
+import com.mazebuilder.sound.SoundEffects;
 
 public final class RunnerPlayer implements Player {
 
@@ -80,6 +81,7 @@ public final class RunnerPlayer implements Player {
 
     @Override
     public int spendMove() {
+        SoundEffects.playRunnerMove();
         return --remainingMoves;
     }
 
@@ -88,6 +90,7 @@ public final class RunnerPlayer implements Player {
     }
 
     public int spendWall() {
+        SoundEffects.playPutWall();
         return --remainingWalls;
     }
 }

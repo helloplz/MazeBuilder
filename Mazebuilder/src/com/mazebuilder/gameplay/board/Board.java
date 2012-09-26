@@ -43,4 +43,15 @@ public interface Board extends Renderable {
      */
     boolean putWall(Location l, Direction d);
 
+    /**
+     * Return the location of the nearest tile to the pixel coordinates given
+     * @return null if the cursor position is out of bounds
+     */
+    Location getTile(int x, int y);
+
+    /**
+     * Returns either the wall direction for the location given by getTile, or null if pixel location is not on a wall tile.
+     */
+    Direction getWallDirection(int x, int y);
+
 }

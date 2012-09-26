@@ -17,6 +17,7 @@ public final class ChaserPlayer implements Player {
     private static final int BONUS_INTERVAL = 2;
     private static final int BONUSES_TO_JUMP = 2;
     private static final int MOVEMENTS_PER_TURN = 2;
+    private static final int STARTING_BONUS_MOVEMENTS = 1;
 
     private final PlayerRenderer renderer;
     private final String name;
@@ -31,6 +32,10 @@ public final class ChaserPlayer implements Player {
         this.name = name;
         this.bonuses = EnumMultiset.create(Direction.class);
         this.rand = new Random();
+        
+        for(int i = 0; i < STARTING_BONUS_MOVEMENTS; i++){
+            newBonus();
+        }
     }
 
     @Override
@@ -55,23 +60,27 @@ public final class ChaserPlayer implements Player {
         turnsToBonus--;
         if (turnsToBonus == 0) {
             SoundEffects.playChaserGetBonus();
-            turnsToBonus = BONUS_INTERVAL;
-            switch (rand.nextInt(4)) {
-            case 0:
-                bonuses.add(Direction.LEFT);
-                break;
-            case 1:
-                bonuses.add(Direction.UP);
-                break;
-            case 2:
-                bonuses.add(Direction.RIGHT);
-                break;
-            case 3:
-                bonuses.add(Direction.DOWN);
-                break;
-            }
+            newBonus();
         }
         System.out.println(getBonuses());
+    }
+    
+    public void newBonus(){
+        turnsToBonus = BONUS_INTERVAL;
+        switch (rand.nextInt(4)) {
+        case 0:
+            bonuses.add(Direction.LEFT);
+            break;
+        case 1:
+            bonuses.add(Direction.UP);
+            break;
+        case 2:
+            bonuses.add(Direction.RIGHT);
+            break;
+        case 3:
+            bonuses.add(Direction.DOWN);
+            break;
+        }
     }
 
     @Override
@@ -93,6 +102,7 @@ public final class ChaserPlayer implements Player {
     public boolean spendBonus(Direction d) {
         return bonuses.remove(d);
     }
+
 
     @Override
     public boolean canMove() {

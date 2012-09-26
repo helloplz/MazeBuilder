@@ -105,6 +105,23 @@ public final class DefaultBoard implements Board {
         return Preconditions.checkNotNull(players.get(p), "Player not found.");
     }
 
+    public void checkWinConditions() {
+        for (Player player1 : players.keySet()) {
+            Location l = players.get(player1);
+            if (player1.getType() == "chaser") {
+                for (Player player2 : players.keySet()) {
+                    if (player2.getType() == "runner" && players.get(player2) == l) {
+                        // chaser wins
+                    }
+                }
+            } else {
+                if (l.getRow() == -1) {
+                    // runner wins
+                }
+            }
+        }
+    }
+
     @Override
     public boolean movePlayer(Player p, Direction d) {
         Location l = getPlayerLocation(p);
@@ -182,6 +199,31 @@ public final class DefaultBoard implements Board {
         Preconditions.checkNotNull(p, "Player cannot be null.");
         Preconditions.checkArgument(!players.containsKey(p), "Player " + Strings.emptyToNull(p.getName()) + " already exists on this board.");
         players.put(p, l);
+    }
+
+    public int[][] getWallLocations() {
+        return walls.getWalls();
+    }
+
+    /**
+     * Log important Board State information for testing purposes.
+     * 
+     * @return String boardState, which lists the player names followed by a coordinate, and walls in the form of (x,y,direction binary).
+     */
+    public String logBoardState() {
+        String boardState = new String();
+        for (Player player : this.players.keySet()) {
+            Location l = this.getPlayerLocation(player);
+            int x = l.getColumn();
+            int y = l.getRow();
+            boardState = boardState + player.getName() + " (" + x + ", " + y + ") ";
+        }
+        for (int i = 0; i < this.getWallLocations().length; i++) {
+            for (int j = 0; j < this.getWallLocations()[i].length; j++) {
+                boardState = boardState + " (" + j + ", " + i + ", " + this.getWallLocations()[i][j] + ") ";
+            }
+        }
+        return boardState;
     }
 
 }

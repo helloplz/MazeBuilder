@@ -9,6 +9,8 @@ public interface Player {
 
     String getName();
 
+    String getType();
+
     boolean canJump();
 
     /** Should be called every turn -- will handle matters such as generating movement bonuses etc. **/

@@ -8,14 +8,15 @@ import com.mazebuilder.gameplay.Direction;
 import com.mazebuilder.renderer.PlayerRenderer;
 
 public final class RunnerPlayer implements Player {
-    
+
     public static final int WALLS_PER_TURN = 1;
     public static final int MOVES_PER_TURN = 1;
 
     private final PlayerRenderer renderer;
     private final String name;
+    private final String type = "runner";
     private final Multiset<Direction> bonuses;
-    
+
     private int remainingMoves;
     private int remainingWalls;
 
@@ -33,6 +34,11 @@ public final class RunnerPlayer implements Player {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getType() {
+        return type;
     }
 
     @Override
@@ -76,7 +82,7 @@ public final class RunnerPlayer implements Player {
     public int spendMove() {
         return --remainingMoves;
     }
-    
+
     public boolean canWall() {
         return remainingWalls > 0;
     }

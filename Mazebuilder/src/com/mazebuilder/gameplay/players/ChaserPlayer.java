@@ -19,6 +19,7 @@ public final class ChaserPlayer implements Player {
 
     private final PlayerRenderer renderer;
     private final String name;
+    private final String type = "chaser";
     private final Multiset<Direction> bonuses;
     private final Random rand;
 
@@ -40,6 +41,11 @@ public final class ChaserPlayer implements Player {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getType() {
+        return type;
     }
 
     @Override
@@ -96,7 +102,7 @@ public final class ChaserPlayer implements Player {
     public boolean canMove() {
         return remainingMoves > 0;
     }
-    
+
     @Override
     public int spendMove() {
         return --remainingMoves;

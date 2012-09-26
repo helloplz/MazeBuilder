@@ -1,4 +1,4 @@
-package test.com.mazebuilder.toys;
+package com.mazebuilder.toys;
 
 import src.com.mazebuilder.gameplay.Direction;
 import src.com.mazebuilder.gameplay.SimpleLocation;

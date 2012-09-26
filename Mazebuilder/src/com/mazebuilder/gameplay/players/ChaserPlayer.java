@@ -25,7 +25,7 @@ public final class ChaserPlayer implements Player {
     private final Multiset<Direction> bonuses;
     private final Random rand;
 
-    private int turnsToBonus = BONUS_INTERVAL;
+    private int turnsToBonus;
     private int remainingMoves;
 
     public ChaserPlayer(PlayerRenderer renderer, String name) {
@@ -37,6 +37,7 @@ public final class ChaserPlayer implements Player {
         for(int i = 0; i < STARTING_BONUS_MOVEMENTS; i++){
             newBonus();
         }
+        this.turnsToBonus = BONUS_INTERVAL + 1;
     }
 
     @Override
@@ -107,7 +108,9 @@ public final class ChaserPlayer implements Player {
 
     @Override
     public boolean spendBonus(Direction d) {
-        System.out.println("Chaser has used a bonus \"" + d.toString() + "\" move");
+        if (bonuses.contains(d)) {
+            System.out.println("Chaser has used a bonus \"" + d.toString() + "\" move");
+        }
         return bonuses.remove(d);
     }
 

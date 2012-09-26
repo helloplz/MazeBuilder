@@ -11,7 +11,7 @@ public final class RunnerPlayerRenderer implements PlayerRenderer {
 
     public RunnerPlayerRenderer() {
         try {
-            player = new Image("\\assets\\Character Cat Girl.png");
+            player = new Image("./assets/Character Cat Girl.png");
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }

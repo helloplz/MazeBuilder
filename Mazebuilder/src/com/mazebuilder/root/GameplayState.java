@@ -2,7 +2,6 @@ package com.mazebuilder.root;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -37,21 +36,23 @@ public class GameplayState extends BasicGameState {
     private static final int CHASER_YPOS = 6;
     private static final int INITIAL_WALLS_XPOS = 3;
     private static final int INITIAL_WALLS_YPOS = 3;
-    //private static final int CHASER_TURN_MILLIS = 5000;
-    
+    // private static final int CHASER_TURN_MILLIS = 5000;
+
     private static Direction jumping = null;
-    
+
     private GameContainer gameContainer;
     private final Board board = new DefaultBoard(new SimpleBoardRenderer(), BOARD_WIDTH, BOARD_HEIGHT);
     private final RunnerPlayer runner = new RunnerPlayer(new RunnerPlayerRenderer(), "A");
     private final ChaserPlayer chaser = new ChaserPlayer(new ChaserPlayerRenderer(), "B");
-    
+
     private int chaserTurnTimer;
-    
+
+    private StateBasedGame game;
 
     /** Write initialization for the board here */
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
+        this.game = game;
         board.addPlayerAtLocation(runner, new SimpleLocation(RUNNER_YPOS, RUNNER_XPOS));
         board.addPlayerAtLocation(chaser, new SimpleLocation(CHASER_YPOS, CHASER_XPOS));
         board.putWall(new SimpleLocation(INITIAL_WALLS_YPOS, INITIAL_WALLS_XPOS), Direction.LEFT);
@@ -70,14 +71,10 @@ public class GameplayState extends BasicGameState {
     /** Each logic step, poll inputs and compute game logic here */
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        /* For real time updates
-        chaserTurnTimer -= delta;
-        if (chaserTurnTimer < 0) {
-            chaser.startTurn();
-            System.out.println("chaser turn");
-            chaserTurnTimer = CHASER_TURN_MILLIS;
-        }
-        */
+        /*
+         * For real time updates chaserTurnTimer -= delta; if (chaserTurnTimer < 0) { chaser.startTurn(); System.out.println("chaser turn");
+         * chaserTurnTimer = CHASER_TURN_MILLIS; }
+         */
     }
 
     @Override
@@ -86,10 +83,10 @@ public class GameplayState extends BasicGameState {
     }
 
     @Override
-	public void keyPressed(int key, char c) {
-        //JUMPing key presses
-        if (jumping != null){
-            switch (c){
+    public void keyPressed(int key, char c) {
+        // JUMPing key presses
+        if (jumping != null) {
+            switch (c) {
             // Regular Moves
             case 'w':
                 board.jumpPlayer(chaser, jumping, Direction.UP, Direction.UP);
@@ -107,39 +104,39 @@ public class GameplayState extends BasicGameState {
                 System.out.println("Jump Cancelled");
                 jumping = null;
             }
-            jumping = null;            
+            jumping = null;
         }
-        //NON-JUMP key presses
-        else{
-            switch (c){
+        // NON-JUMP key presses
+        else {
+            switch (c) {
             // Regular Moves
             case 'w':
-                if (chaser.canMove()){
-                    if(!board.movePlayer(chaser, Direction.UP)){
+                if (chaser.canMove()) {
+                    if (!board.movePlayer(chaser, Direction.UP)) {
                         jumping = Direction.UP;
                         handleJump();
                     }
                 }
                 break;
             case 'a':
-                if (chaser.canMove()){
-                    if(!board.movePlayer(chaser, Direction.LEFT)){
+                if (chaser.canMove()) {
+                    if (!board.movePlayer(chaser, Direction.LEFT)) {
                         jumping = Direction.LEFT;
                         handleJump();
                     }
                 }
                 break;
             case 's':
-                if (chaser.canMove()){
-                    if(!board.movePlayer(chaser, Direction.DOWN)){
+                if (chaser.canMove()) {
+                    if (!board.movePlayer(chaser, Direction.DOWN)) {
                         jumping = Direction.DOWN;
                         handleJump();
                     }
                 }
                 break;
             case 'd':
-                if (chaser.canMove()){
-                    if(!board.movePlayer(chaser, Direction.RIGHT)){
+                if (chaser.canMove()) {
+                    if (!board.movePlayer(chaser, Direction.RIGHT)) {
                         jumping = Direction.RIGHT;
                         handleJump();
                     }
@@ -159,48 +156,48 @@ public class GameplayState extends BasicGameState {
                 board.movePlayerWithBonus(chaser, Direction.RIGHT);
                 break;
             case ' ':
-                if(!runner.canMove() && !runner.canWall()){
+                if (!runner.canMove() && !runner.canWall()) {
                     runner.startTurn();
                 }
             }
         }
-  	}
-    
-    public void handleJump(){
-        Multiset<Direction> m = chaser.getBonuses(); 
+    }
+
+    public void handleJump() {
+        Multiset<Direction> m = chaser.getBonuses();
         int up = m.count(Direction.UP);
         int down = m.count(Direction.DOWN);
         int left = m.count(Direction.LEFT);
         int right = m.count(Direction.RIGHT);
         boolean hasJump = false;
-        
-        if (up >= chaser.bonusesToJump()){
+
+        if (up >= chaser.bonusesToJump()) {
             System.out.println("Press W to use 2 bonus \"UP\" movements to jump the wall");
             hasJump = true;
         }
-        if (down >= chaser.bonusesToJump()){
+        if (down >= chaser.bonusesToJump()) {
             System.out.println("Press S to use 2 bonus \"DOWN\" movements to jump the wall");
             hasJump = true;
         }
-        if (left >= chaser.bonusesToJump()){
+        if (left >= chaser.bonusesToJump()) {
             System.out.println("Press A to use 2 bonus \"LEFT\" movements to jump the wall");
             hasJump = true;
         }
-        if (right >= chaser.bonusesToJump()){
+        if (right >= chaser.bonusesToJump()) {
             System.out.println("Press D to use 2 bonus \"RIGHT\" movements to jump the wall");
             hasJump = true;
         }
-        if (!hasJump){
+        if (!hasJump) {
             System.out.println("You do not have matching bonuses. You cannot jump the wall");
         }
         System.out.println("Press SPACE to quit without jumping");
 
     }
-    
+
     @Override
-	public void mouseClicked(int button, int x, int y, int clickCount) {
+    public void mouseClicked(int button, int x, int y, int clickCount) {
         if (runner.canMove()) {
-            Location loc = board.getTile(x-64,  y-64);
+            Location loc = board.getTile(x - 64, y - 64);
             if (loc != null) {
                 Direction dir = board.getPlayerLocation(runner).isAdjacent(loc);
                 if (dir != null) {
@@ -208,8 +205,8 @@ public class GameplayState extends BasicGameState {
                 }
             }
         } else if (runner.canWall()) {
-            Direction dir = board.getWallDirection(x-64, y-64);
-            Location loc = board.getTile(x-64,  y-64);
+            Direction dir = board.getWallDirection(x - 64, y - 64);
+            Location loc = board.getTile(x - 64, y - 64);
             if (dir != null && loc != null) {
                 if (board.putWall(loc, dir)) {
                     if (runner.spendWall() == 0) {
@@ -219,7 +216,7 @@ public class GameplayState extends BasicGameState {
             }
         }
     }
-    
+
     private void movePlayer(Player player, Direction dir) {
         if (board.movePlayer(player, dir)) {
             player.startTurn();

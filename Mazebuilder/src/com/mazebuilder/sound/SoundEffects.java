@@ -17,11 +17,11 @@ public final class SoundEffects {
 
     static {
         try {
-            putWall = new Sound("\\assets\\sounds\\DropWall.wav");
-            runnerMove = new Sound("\\assets\\sounds\\PlayerOneMove.wav");
-            chaserMove = new Sound("\\assets\\sounds\\PlayerTwoMove.wav");
-            chaserWin = new Sound("\\assets\\sounds\\PlayerOneDies.wav");
-            chaserGetBonus = new Sound("\\assets\\sounds\\PlayerTwoGetPower.wav");
+            putWall = new Sound("./assets/sounds/DropWall.wav");
+            runnerMove = new Sound("./assets/sounds/PlayerOneMove.wav");
+            chaserMove = new Sound("./assets/sounds/PlayerTwoMove.wav");
+            chaserWin = new Sound("./assets/sounds/PlayerOneDies.wav");
+            chaserGetBonus = new Sound("./assets/sounds/PlayerTwoGetPower.wav");
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }

@@ -26,7 +26,7 @@ public final class DefaultBoard implements Board {
         this.tilesDown = tilesDown;
         walls = new BitmaskWallContainer(tilesDown, tilesAcross);
     }
-    
+
     @Override
     public Location getTile(int x, int y) {
         x /= renderer.tileWidth() + renderer.wallShortSideLength();
@@ -36,7 +36,7 @@ public final class DefaultBoard implements Board {
         }
         return new SimpleLocation(y, x);
     }
-    
+
     @Override
     public Direction getWallDirection(int x, int y) {
         x %= renderer.tileWidth() + renderer.wallShortSideLength();
@@ -134,12 +134,13 @@ public final class DefaultBoard implements Board {
             if (player1.getType() == "chaser") {
                 for (Player player2 : players.keySet()) {
                     if (player2.getType() == "runner" && players.get(player2) == l) {
-                        // chaser wins
+                        // TODO chaser wins
                     }
                 }
             } else {
+                // TODO not sure what row qualifies runner to win
                 if (l.getRow() == -1) {
-                    // runner wins
+                    // TODO runner wins
                 }
             }
         }

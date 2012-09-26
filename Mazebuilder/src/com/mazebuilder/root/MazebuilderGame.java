@@ -5,11 +5,15 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.mazebuilder.gameplay.players.Player;
+
 /**
  * 
  * @author dxiao
  */
 public class MazebuilderGame extends StateBasedGame {
+
+    private Player winner;
 
     public MazebuilderGame() {
         super("Mazebuilder v0.0");
@@ -20,6 +24,14 @@ public class MazebuilderGame extends StateBasedGame {
         // temporarily disabled for testing of GameplayState
         // addState(new MainMenuState());
         addState(new GameplayState());
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Player player) {
+        winner = player;
     }
 
     public static void main(String args[]) throws SlickException {

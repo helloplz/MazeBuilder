@@ -11,7 +11,7 @@ public final class ChaserPlayerRenderer implements PlayerRenderer {
 
     public ChaserPlayerRenderer() {
         try {
-            player = new Image("\\assets\\Character Horn Girl.png");
+            player = new Image("./assets/Character Horn Girl.png");
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }

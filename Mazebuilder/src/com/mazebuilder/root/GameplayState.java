@@ -39,6 +39,8 @@ public class GameplayState extends BasicGameState {
     private static final int INITIAL_WALLS_YPOS = 3;
     //private static final int CHASER_TURN_MILLIS = 5000;
     
+    private static Direction jumping = null;
+    
     private GameContainer gameContainer;
     private final Board board = new DefaultBoard(new SimpleBoardRenderer(), BOARD_WIDTH, BOARD_HEIGHT);
     private final RunnerPlayer runner = new RunnerPlayer(new RunnerPlayerRenderer(), "A");
@@ -85,54 +87,114 @@ public class GameplayState extends BasicGameState {
 
     @Override
 	public void keyPressed(int key, char c) {
-        displayBonuses();
-        switch (c){
-        // Regular Moves
-        case 'w':
-            if (chaser.canMove()){
-                board.movePlayer(chaser, Direction.UP);
+        //JUMPing key presses
+        if (jumping != null){
+            switch (c){
+            // Regular Moves
+            case 'w':
+                board.jumpPlayer(chaser, jumping, Direction.UP, Direction.UP);
+                break;
+            case 'a':
+                board.jumpPlayer(chaser, jumping, Direction.LEFT, Direction.LEFT);
+                break;
+            case 's':
+                board.jumpPlayer(chaser, jumping, Direction.DOWN, Direction.DOWN);
+                break;
+            case 'd':
+                board.jumpPlayer(chaser, jumping, Direction.RIGHT, Direction.RIGHT);
+                break;
+            case ' ':
+                System.out.println("Jump Cancelled");
+                jumping = null;
             }
-            break;
-        case 'a':
-            if (chaser.canMove()){
-                board.movePlayer(chaser, Direction.LEFT);
+            jumping = null;            
+        }
+        //NON-JUMP key presses
+        else{
+            switch (c){
+            // Regular Moves
+            case 'w':
+                if (chaser.canMove()){
+                    if(!board.movePlayer(chaser, Direction.UP)){
+                        jumping = Direction.UP;
+                        handleJump();
+                    }
+                }
+                break;
+            case 'a':
+                if (chaser.canMove()){
+                    if(!board.movePlayer(chaser, Direction.LEFT)){
+                        jumping = Direction.LEFT;
+                        handleJump();
+                    }
+                }
+                break;
+            case 's':
+                if (chaser.canMove()){
+                    if(!board.movePlayer(chaser, Direction.DOWN)){
+                        jumping = Direction.DOWN;
+                        handleJump();
+                    }
+                }
+                break;
+            case 'd':
+                if (chaser.canMove()){
+                    if(!board.movePlayer(chaser, Direction.RIGHT)){
+                        jumping = Direction.RIGHT;
+                        handleJump();
+                    }
+                }
+                break;
+            // Special Moves
+            case 'W':
+                board.movePlayerWithBonus(chaser, Direction.UP);
+                break;
+            case 'A':
+                board.movePlayerWithBonus(chaser, Direction.LEFT);
+                break;
+            case 'S':
+                board.movePlayerWithBonus(chaser, Direction.DOWN);
+                break;
+            case 'D':
+                board.movePlayerWithBonus(chaser, Direction.RIGHT);
+                break;
+            case ' ':
+                if(!runner.canMove() && !runner.canWall()){
+                    runner.startTurn();
+                }
             }
-            break;
-        case 's':
-            if (chaser.canMove()){
-                board.movePlayer(chaser, Direction.DOWN);
-            }
-            break;
-        case 'd':
-            if (chaser.canMove()){
-                board.movePlayer(chaser, Direction.RIGHT);
-            }
-            break;
-        // Special Moves
-        case 'W':
-            board.movePlayerWithBonus(chaser, Direction.UP);
-            break;
-        case 'A':
-            board.movePlayerWithBonus(chaser, Direction.LEFT);
-            break;
-        case 'S':
-            board.movePlayerWithBonus(chaser, Direction.DOWN);
-            break;
-        case 'D':
-            board.movePlayerWithBonus(chaser, Direction.RIGHT);
-            break;
-        case ' ':
-            runner.startTurn();
         }
   	}
     
-    //Shows the list of all bonuses held by chaserPlayer
-    public void displayBonuses(){
-        System.out.println("CHASER PLAYER HAS THE FOLLOWING BONUSES:");
-        Multiset<Direction> m = chaser.getBonuses();
-        for(Direction d:Direction.values()){
-            System.out.println(m.count(d) + " " + d.toString()+"s");
+    public void handleJump(){
+        Multiset<Direction> m = chaser.getBonuses(); 
+        int up = m.count(Direction.UP);
+        int down = m.count(Direction.DOWN);
+        int left = m.count(Direction.LEFT);
+        int right = m.count(Direction.RIGHT);
+        boolean hasJump = false;
+        
+        if (up >= chaser.bonusesToJump()){
+            System.out.println("Press W to use 2 bonus \"UP\" movements to jump the wall");
+            hasJump = true;
         }
+        if (down >= chaser.bonusesToJump()){
+            System.out.println("Press S to use 2 bonus \"DOWN\" movements to jump the wall");
+            hasJump = true;
+        }
+        if (left >= chaser.bonusesToJump()){
+            System.out.println("Press A to use 2 bonus \"LEFT\" movements to jump the wall");
+            hasJump = true;
+        }
+        if (right >= chaser.bonusesToJump()){
+            System.out.println("Press D to use 2 bonus \"RIGHT\" movements to jump the wall");
+            hasJump = true;
+        }
+        if (!hasJump){
+            System.out.println("You do not have matching bonuses. You cannot jump the wall");
+        }
+        System.out.println("Press SPACE to quit without jumping");
+
     }
     
     @Override

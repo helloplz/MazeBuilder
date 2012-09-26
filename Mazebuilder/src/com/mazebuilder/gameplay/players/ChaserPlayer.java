@@ -62,6 +62,7 @@ public final class ChaserPlayer implements Player {
             SoundEffects.playChaserGetBonus();
             newBonus();
         }
+        System.out.println("CHASER PLAYER HAS THE FOLLOWING BONUSES:");
         System.out.println(getBonuses());
     }
     
@@ -100,6 +101,7 @@ public final class ChaserPlayer implements Player {
 
     @Override
     public boolean spendBonus(Direction d) {
+        System.out.println("Chaser has used a bonus \"" + d.toString() + "\" move");
         return bonuses.remove(d);
     }
 
@@ -114,5 +116,5 @@ public final class ChaserPlayer implements Player {
         SoundEffects.playChaserMove();
         return --remainingMoves;
     }
-
+    
 }

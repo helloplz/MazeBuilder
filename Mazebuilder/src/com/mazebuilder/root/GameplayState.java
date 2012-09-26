@@ -2,10 +2,12 @@ package com.mazebuilder.root;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.google.common.collect.Multiset;
 import com.mazebuilder.gameplay.Direction;
 import com.mazebuilder.gameplay.Location;
 import com.mazebuilder.gameplay.SimpleLocation;
@@ -37,6 +39,7 @@ public class GameplayState extends BasicGameState {
     private static final int INITIAL_WALLS_YPOS = 3;
     //private static final int CHASER_TURN_MILLIS = 5000;
     
+    private GameContainer gameContainer;
     private final Board board = new DefaultBoard(new SimpleBoardRenderer(), BOARD_WIDTH, BOARD_HEIGHT);
     private final RunnerPlayer runner = new RunnerPlayer(new RunnerPlayerRenderer(), "A");
     private final ChaserPlayer chaser = new ChaserPlayer(new ChaserPlayerRenderer(), "B");
@@ -52,6 +55,7 @@ public class GameplayState extends BasicGameState {
         board.putWall(new SimpleLocation(INITIAL_WALLS_YPOS, INITIAL_WALLS_XPOS), Direction.LEFT);
         board.putWall(new SimpleLocation(INITIAL_WALLS_YPOS, INITIAL_WALLS_XPOS), Direction.RIGHT);
         runner.startTurn();
+        gameContainer = container;
     }
 
     /** Each rendering step, draw the game here */
@@ -81,25 +85,59 @@ public class GameplayState extends BasicGameState {
 
     @Override
 	public void keyPressed(int key, char c) {
-        if (chaser.canMove()){
-            switch (c){
-            case 'w':
+        displayBonuses();
+        switch (c){
+        // Regular Moves
+        case 'w':
+            if (chaser.canMove()){
                 board.movePlayer(chaser, Direction.UP);
                 break;
-            case 'a':
+            }
+        case 'a':
+            if (chaser.canMove()){
                 board.movePlayer(chaser, Direction.LEFT);
                 break;
-            case 's':
+            }
+        case 's':
+            if (chaser.canMove()){
                 board.movePlayer(chaser, Direction.DOWN);
                 break;
-            case 'd':
+            }
+        case 'd':
+            if (chaser.canMove()){
                 board.movePlayer(chaser, Direction.RIGHT);
                 break;
             }
-        } else if (c == ' ') {
+        // Special Moves
+        case 'W':
+            board.movePlayer(chaser, Direction.UP);
+            chaser.spendBonus(Direction.UP);
+            break;
+        case 'A':
+            board.movePlayer(chaser, Direction.LEFT);
+            chaser.spendBonus(Direction.LEFT);
+            break;
+        case 'S':
+            board.movePlayer(chaser, Direction.DOWN);
+            chaser.spendBonus(Direction.DOWN);
+            break;
+        case 'D':
+            board.movePlayer(chaser, Direction.RIGHT);
+            chaser.spendBonus(Direction.RIGHT);
+            break;
+        case ' ':
             runner.startTurn();
         }
   	}
+    
+    //Shows the list of all bonuses held by chaserPlayer
+    public void displayBonuses(){
+        System.out.println("CHASER PLAYER HAS THE FOLLOWING BONUSES:");
+        Multiset<Direction> m = chaser.getBonuses();
+        for(Direction d:Direction.values()){
+            System.out.println(m.count(d) + " " + d.toString()+"s");
+        }
+    }
     
     @Override
 	public void mouseClicked(int button, int x, int y, int clickCount) {

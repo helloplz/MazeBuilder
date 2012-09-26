@@ -31,7 +31,7 @@ public class ChaserWinState extends BasicGameState {
 
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
-        game.enterState(GameplayState.ID);
+        game.enterState(MainMenuState.ID);
     }
 
     @Override

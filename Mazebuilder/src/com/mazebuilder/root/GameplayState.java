@@ -101,6 +101,18 @@ public class GameplayState extends BasicGameState {
         return ID;
     }
 
+    public void checkChaserWin() {
+        if (board.getPlayerLocation(chaser).equals(board.getPlayerLocation(runner))) {
+            game.enterState(ChaserWinState.ID);
+        }
+    }
+
+    public void checkRunnerWin() {
+        if (BOARD_HEIGHT - 1 == board.getPlayerLocation(runner).getRow()) {
+            game.enterState(RunnerWinState.ID);
+        }
+    }
+
     @Override
     public void keyPressed(int key, char c) {
         if (c == 'q') {
@@ -179,10 +191,13 @@ public class GameplayState extends BasicGameState {
                 break;
             case ' ':
                 if (!runner.canMove() && !runner.canWall()) {
+                    checkRunnerWin();
                     runner.startTurn();
                 }
             }
         }
+        // TODO Check chaser win condition
+        checkChaserWin();
     }
 
     public void handleJump() {

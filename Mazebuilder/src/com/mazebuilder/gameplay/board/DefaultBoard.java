@@ -128,24 +128,6 @@ public final class DefaultBoard implements Board {
         return Preconditions.checkNotNull(players.get(p), "Player not found.");
     }
 
-    public void checkWinConditions() {
-        for (Player player1 : players.keySet()) {
-            Location l = players.get(player1);
-            if (player1.getType() == "chaser") {
-                for (Player player2 : players.keySet()) {
-                    if (player2.getType() == "runner" && players.get(player2) == l) {
-                        // TODO chaser wins
-                    }
-                }
-            } else {
-                // TODO not sure what row qualifies runner to win
-                if (l.getRow() == -1) {
-                    // TODO runner wins
-                }
-            }
-        }
-    }
-
     @Override
     public boolean movePlayer(Player p, Direction d) {
         Location l = getPlayerLocation(p);

@@ -34,7 +34,7 @@ public final class SimpleLocation implements Location {
             throw new RuntimeException("Unknown direction " + d.toString());
         }
     }
-    
+
     @Override
     public Direction isAdjacent(Location loc) {
         if (loc.getRow() == this.getRow()) {

@@ -1,5 +1,6 @@
 package com.mazebuilder.root;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -47,6 +48,7 @@ public class GameplayState extends BasicGameState {
     private final ChaserPlayer chaser = new ChaserPlayer(new ChaserPlayerRenderer(), "B");
     
     private int chaserTurnTimer;
+    private boolean showMoves;
     
 
     /** Write initialization for the board here */
@@ -65,6 +67,34 @@ public class GameplayState extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         board.render(g, 64, 64);
         // g.drawString("Hello, Mazebuilder! [Gameplay]", 50, 100);
+        g.setColor(Color.white);
+        if (runner.canMove() || runner.canWall()) {
+            g.drawString("Runner's Turn!", 650, 100);
+        } else {
+            g.drawString("Chaser's Turn!", 650, 120);
+        }
+        
+        g.drawString("INSTRUCTIONS:\n\n" +
+        		"--Runner (starts at top):\n" +
+        		"Get to the bottom of the board\n" +
+        		"without the chaser touching you!\n" +
+        		"1) Click on a square to move to\n" +
+        		"2) Click on an edge to place a wall\n" +
+        		"--Chaser (starts at bottom)\n\n" +
+        		"Catch the runner!\n" +
+        		"(Press q to see your movement cards\n" +
+        		" q again to hide them)\n" +
+        		"1) w/a/s/d to move a square\n" +
+        		"   (you can move twice per turn)\n" +
+        		"2) W/A/S/D to use special movement\n" +
+        		"3) To jump a wall, move in direction\n" +
+        		"   of wall, then specify the type of\n" +
+        		"   movement card to use. (you need\n" +
+        		"   two of the card direction)", 650, 150);
+        
+        if (showMoves) {
+            g.drawString(chaser.getBonuses().toString(), 650, 580);
+        }
     }
 
     /** Each logic step, poll inputs and compute game logic here */
@@ -87,6 +117,9 @@ public class GameplayState extends BasicGameState {
 
     @Override
 	public void keyPressed(int key, char c) {
+        if (c == 'q') {
+            showMoves = !showMoves;
+        }
         //JUMPing key presses
         if (jumping != null){
             switch (c){
@@ -217,12 +250,6 @@ public class GameplayState extends BasicGameState {
                     }
                 }
             }
-        }
-    }
-    
-    private void movePlayer(Player player, Direction dir) {
-        if (board.movePlayer(player, dir)) {
-            player.startTurn();
         }
     }
 }

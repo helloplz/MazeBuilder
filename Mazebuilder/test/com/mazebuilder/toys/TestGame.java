@@ -1,4 +1,4 @@
-package test.com.mazebuilder.toys;
+package com.mazebuilder.toys;
 
 public class TestGame {
     /**

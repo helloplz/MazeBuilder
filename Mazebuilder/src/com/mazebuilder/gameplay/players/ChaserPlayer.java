@@ -9,6 +9,7 @@ import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
 import com.mazebuilder.gameplay.Direction;
 import com.mazebuilder.renderer.PlayerRenderer;
+import com.mazebuilder.sound.SoundEffects;
 
 public final class ChaserPlayer implements Player {
 
@@ -53,6 +54,7 @@ public final class ChaserPlayer implements Player {
         remainingMoves = MOVEMENTS_PER_TURN;
         turnsToBonus--;
         if (turnsToBonus == 0) {
+            SoundEffects.playChaserGetBonus();
             turnsToBonus = BONUS_INTERVAL;
             switch (rand.nextInt(4)) {
             case 0:
@@ -96,9 +98,10 @@ public final class ChaserPlayer implements Player {
     public boolean canMove() {
         return remainingMoves > 0;
     }
-    
+
     @Override
     public int spendMove() {
+        SoundEffects.playChaserMove();
         return --remainingMoves;
     }
 

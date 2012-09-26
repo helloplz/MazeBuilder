@@ -6,16 +6,17 @@ import com.google.common.collect.EnumMultiset;
 import com.google.common.collect.Multiset;
 import com.mazebuilder.gameplay.Direction;
 import com.mazebuilder.renderer.PlayerRenderer;
+import com.mazebuilder.sound.SoundEffects;
 
 public final class RunnerPlayer implements Player {
-    
+
     public static final int WALLS_PER_TURN = 1;
     public static final int MOVES_PER_TURN = 1;
 
     private final PlayerRenderer renderer;
     private final String name;
     private final Multiset<Direction> bonuses;
-    
+
     private int remainingMoves;
     private int remainingWalls;
 
@@ -74,14 +75,16 @@ public final class RunnerPlayer implements Player {
 
     @Override
     public int spendMove() {
+        SoundEffects.playRunnerMove();
         return --remainingMoves;
     }
-    
+
     public boolean canWall() {
         return remainingWalls > 0;
     }
 
     public int spendWall() {
+        SoundEffects.playPutWall();
         return --remainingWalls;
     }
 }

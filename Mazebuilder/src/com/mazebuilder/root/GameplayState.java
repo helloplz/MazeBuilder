@@ -91,39 +91,35 @@ public class GameplayState extends BasicGameState {
         case 'w':
             if (chaser.canMove()){
                 board.movePlayer(chaser, Direction.UP);
-                break;
             }
+            break;
         case 'a':
             if (chaser.canMove()){
                 board.movePlayer(chaser, Direction.LEFT);
-                break;
             }
+            break;
         case 's':
             if (chaser.canMove()){
                 board.movePlayer(chaser, Direction.DOWN);
-                break;
             }
+            break;
         case 'd':
             if (chaser.canMove()){
                 board.movePlayer(chaser, Direction.RIGHT);
-                break;
             }
+            break;
         // Special Moves
         case 'W':
-            board.movePlayer(chaser, Direction.UP);
-            chaser.spendBonus(Direction.UP);
+            board.movePlayerWithBonus(chaser, Direction.UP);
             break;
         case 'A':
-            board.movePlayer(chaser, Direction.LEFT);
-            chaser.spendBonus(Direction.LEFT);
+            board.movePlayerWithBonus(chaser, Direction.LEFT);
             break;
         case 'S':
-            board.movePlayer(chaser, Direction.DOWN);
-            chaser.spendBonus(Direction.DOWN);
+            board.movePlayerWithBonus(chaser, Direction.DOWN);
             break;
         case 'D':
-            board.movePlayer(chaser, Direction.RIGHT);
-            chaser.spendBonus(Direction.RIGHT);
+            board.movePlayerWithBonus(chaser, Direction.RIGHT);
             break;
         case ' ':
             runner.startTurn();

@@ -1,5 +1,6 @@
 package com.mazebuilder.gameplay.players;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import org.newdawn.slick.Graphics;
@@ -124,6 +125,10 @@ public final class ChaserPlayer implements Player {
     public int spendMove() {
         SoundEffects.playChaserMove();
         return --remainingMoves;
+    }
+    
+    public boolean hasBonuses(Direction...directions) {
+        return bonuses.containsAll(Arrays.asList(directions));
     }
     
 }

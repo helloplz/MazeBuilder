@@ -2,35 +2,41 @@ package com.mazebuilder.root;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class ChaserWinState extends BasicGameState {
+public class HelpState extends BasicGameState {
+    static public final int ID = 4;
 
-    static public final int ID = 2;
     private StateBasedGame game;
-    private GameContainer gameContainer;
+
     private Rectangle MenuButton;
+
+    private Image HelpImg;
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        // TODO Auto-generated method stub
         this.game = game;
-        this.gameContainer = container;
-
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        g.drawString("Chasing Player Wins!", 50, 100);
-        g.draw(MenuButton = new Rectangle(48, 148, 100, 48));
-        g.drawString("Main Menu", 50, 150);
+        g.drawString("HINT: the cake is a lie...", 50, 100);
+        try {
+            HelpImg = new Image("./assets/Help Screen.png");
+            g.drawImage(HelpImg, 10, 150);
+        } catch (SlickException e) {
+            throw new RuntimeException(e);
+        }
+        g.draw(MenuButton = new Rectangle(48, 678, 100, 48));
+        g.drawString("Main Menu", 50, 680);
     }
 
     @Override
-    public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
     }
 
     @Override
@@ -44,5 +50,4 @@ public class ChaserWinState extends BasicGameState {
     public int getID() {
         return ID;
     }
-
 }

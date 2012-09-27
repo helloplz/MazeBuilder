@@ -1,4 +1,5 @@
 package com.mazebuilder.toys;
+
 import com.mazebuilder.gameplay.Direction;
 import com.mazebuilder.gameplay.SimpleLocation;
 import com.mazebuilder.gameplay.board.Board;

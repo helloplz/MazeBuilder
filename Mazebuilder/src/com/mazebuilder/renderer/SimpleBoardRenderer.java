@@ -9,12 +9,15 @@ import com.mazebuilder.gameplay.Location;
 
 public final class SimpleBoardRenderer implements BoardRenderer {
 
+
     private static final int TILE_HEIGHT = 50;
     private static final int TILE_WIDTH = 50;
     private static final int WALL_SHORT_SIDE = 30;
     private Image boardPiece; 
     private Image lakePiece;
     private Image bridgePiece;
+
+    private static final int PLAYER_OVERFILL = 7;
 
     @Override
     public int tileHeight() {
@@ -29,6 +32,11 @@ public final class SimpleBoardRenderer implements BoardRenderer {
     @Override
     public int wallShortSideLength() {
         return WALL_SHORT_SIDE;
+    }
+    
+    @Override
+    public int playerOverfill() {
+        return PLAYER_OVERFILL;
     }
 
     

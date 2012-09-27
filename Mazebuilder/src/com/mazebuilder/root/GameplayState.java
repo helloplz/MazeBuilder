@@ -120,23 +120,31 @@ public class GameplayState extends BasicGameState {
         }
         // JUMPing key presses
         if (jumping != null) {
+            boolean madeJump;
             switch (c) {
             // Regular Moves
             case 'w':
-                board.jumpPlayer(chaser, jumping, Direction.UP, Direction.UP);
+                if (chaser.hasBonuses(Direction.UP, Direction.UP)) {
+                    board.jumpPlayer(chaser, jumping, Direction.UP, Direction.UP);
+                }
                 break;
             case 'a':
-                board.jumpPlayer(chaser, jumping, Direction.LEFT, Direction.LEFT);
+                if (chaser.hasBonuses(Direction.LEFT, Direction.LEFT)) {
+                    board.jumpPlayer(chaser, jumping, Direction.LEFT, Direction.LEFT);
+                }
                 break;
             case 's':
-                board.jumpPlayer(chaser, jumping, Direction.DOWN, Direction.DOWN);
+                if (chaser.hasBonuses(Direction.DOWN, Direction.DOWN)) {
+                    board.jumpPlayer(chaser, jumping, Direction.DOWN, Direction.DOWN);
+                }
                 break;
             case 'd':
-                board.jumpPlayer(chaser, jumping, Direction.RIGHT, Direction.RIGHT);
+                if (chaser.hasBonuses(Direction.RIGHT, Direction.RIGHT)) {
+                    board.jumpPlayer(chaser, jumping, Direction.RIGHT, Direction.RIGHT);
+                }
                 break;
             case ' ':
                 System.out.println("Jump Cancelled");
-                jumping = null;
             }
             jumping = null;
         }
@@ -226,8 +234,10 @@ public class GameplayState extends BasicGameState {
         }
         if (!hasJump) {
             System.out.println("You do not have matching bonuses. You cannot jump the wall");
+            jumping = null;
+        } else {
+            System.out.println("Press SPACE to quit without jumping");
         }
-        System.out.println("Press SPACE to quit without jumping");
 
     }
 

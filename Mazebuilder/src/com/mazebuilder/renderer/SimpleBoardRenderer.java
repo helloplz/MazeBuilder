@@ -10,9 +10,24 @@ public final class SimpleBoardRenderer implements BoardRenderer {
     private static final int TILE_HEIGHT = 50;
     private static final int TILE_WIDTH = 50;
     private static final int WALL_SHORT_SIDE = 30;
-    private Image boardPiece;
-    private Image lakePiece;
-    private Image bridgePiece;
+
+    private static final Image boardPiece;
+    private static final Image lakePieceHorizontal, lakePieceVertical;
+    private static final Image bridgePieceHorizontal, bridgePieceVertical;
+    private static final Image cornerPiece;
+
+    static {
+        try {
+            boardPiece = new Image("./assets/crateside.bmp");
+            lakePieceHorizontal = new Image("./assets/WaterHorz.jpg");
+            lakePieceVertical = new Image("./assets/WaterVert.jpg");
+            bridgePieceHorizontal = new Image("./assets/WaterWithBridgeHorz.jpg");
+            bridgePieceVertical = new Image("./assets/WaterWithBridgeVert.jpg");
+            cornerPiece = new Image("./assets/WaterEdge.jpg");
+        } catch (SlickException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private static final int PLAYER_OVERFILL = 7;
 
@@ -38,11 +53,6 @@ public final class SimpleBoardRenderer implements BoardRenderer {
 
     @Override
     public void drawTile(Graphics g, int x, int y) {
-        try {
-            boardPiece = new Image("./assets/crateside.bmp");
-        } catch (SlickException e) {
-            throw new RuntimeException(e);
-        }
         g.setColor(Color.red);
         g.drawImage(boardPiece, x, y, Color.white);
     }
@@ -51,38 +61,18 @@ public final class SimpleBoardRenderer implements BoardRenderer {
     public void drawWall(Graphics g, int x, int y, boolean horizontal) {
         g.setColor(Color.lightGray);
         if (horizontal) {
-            try {
-                lakePiece = new Image("./assets/WaterHorz.jpg");
-            } catch (SlickException e) {
-                throw new RuntimeException(e);
-            }
-            g.drawImage(lakePiece, x, y, Color.white);
+            g.drawImage(lakePieceHorizontal, x, y, Color.white);
         } else {
-            try {
-                lakePiece = new Image("./assets/WaterVert.jpg");
-            } catch (SlickException e) {
-                throw new RuntimeException(e);
-            }
-            g.drawImage(lakePiece, x, y, Color.white);
+            g.drawImage(lakePieceVertical, x, y, Color.white);
         }
     }
 
     @Override
     public void drawNoWall(Graphics g, int x, int y, boolean horizontal) {
         if (horizontal) {
-            try {
-                lakePiece = new Image("./assets/WaterWithBridgeHorz.jpg");
-            } catch (SlickException e) {
-                throw new RuntimeException(e);
-            }
-            g.drawImage(lakePiece, x, y, Color.white);
+            g.drawImage(bridgePieceHorizontal, x, y, Color.white);
         } else {
-            try {
-                lakePiece = new Image("./assets/WaterWithBridgeVert.jpg");
-            } catch (SlickException e) {
-                throw new RuntimeException(e);
-            }
-            g.drawImage(lakePiece, x, y, Color.white);
+            g.drawImage(bridgePieceVertical, x, y, Color.white);
         }
     }
 
@@ -90,11 +80,6 @@ public final class SimpleBoardRenderer implements BoardRenderer {
     public void drawCorner(Graphics g, int x, int y) {
         // g.setColor(Color.green);
         // g.fillRoundRect(x, y, WALL_SHORT_SIDE, WALL_SHORT_SIDE, 8);
-        try {
-            lakePiece = new Image("./assets/WaterEdge.jpg");
-        } catch (SlickException e) {
-            throw new RuntimeException(e);
-        }
-        g.drawImage(lakePiece, x, y, Color.white);
+        g.drawImage(cornerPiece, x, y, Color.white);
     }
 }

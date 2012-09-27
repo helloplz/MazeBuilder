@@ -7,9 +7,9 @@ import org.newdawn.slick.SlickException;
 
 public final class RunnerPlayerRenderer implements PlayerRenderer {
 
-    private final Image player;
+    private static final Image player;
 
-    public RunnerPlayerRenderer() {
+    static {
         try {
             player = new Image("./assets/Character Cat Girl.png");
         } catch (SlickException e) {

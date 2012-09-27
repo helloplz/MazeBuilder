@@ -2,7 +2,6 @@ package com.mazebuilder.sound;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
-import org.newdawn.slick.Music;
 
 public final class SoundEffects {
 
@@ -15,7 +14,6 @@ public final class SoundEffects {
     private static final Sound chaserMove;
     private static final Sound chaserWin;
     private static final Sound chaserGetBonus;
-//    private static final Music backGroundMusic;
 
     static {
         try {
@@ -24,16 +22,11 @@ public final class SoundEffects {
             chaserMove = new Sound("./assets/sounds/PlayerTwoMove.wav");
             chaserWin = new Sound("./assets/sounds/PlayerOneDies.wav");
             chaserGetBonus = new Sound("./assets/sounds/PlayerTwoGetPower.wav");
-//            backGroundMusic = new Music("./assets/sounds/mischief2.ogg");
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }
     }
 
-//    public static void playBGM() {
-//        backGroundMusic.play();
-//    }
-    
     public static void playPutWall() {
         putWall.play();
     }

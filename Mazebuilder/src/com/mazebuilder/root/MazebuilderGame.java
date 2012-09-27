@@ -5,7 +5,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.mazebuilder.sound.*;
 import com.mazebuilder.gameplay.players.Player;
 
 /**
@@ -15,7 +14,7 @@ import com.mazebuilder.gameplay.players.Player;
 public class MazebuilderGame extends StateBasedGame {
 
     private Player winner;
-    
+
     public MazebuilderGame() {
         super("Mazebuilder v0.0");
     }
@@ -40,8 +39,7 @@ public class MazebuilderGame extends StateBasedGame {
 
     public static void main(String args[]) throws SlickException {
         AppGameContainer app = new AppGameContainer(new MazebuilderGame());
-        
-        
+
         app.setDisplayMode(1024, 768, false);
         app.setMaximumLogicUpdateInterval(100);
         app.setMinimumLogicUpdateInterval(10);
@@ -49,5 +47,6 @@ public class MazebuilderGame extends StateBasedGame {
         // app.setSmoothDeltas(true);
 
         app.start();
+
     }
 }

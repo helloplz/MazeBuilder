@@ -5,15 +5,12 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import com.mazebuilder.gameplay.Location;
-
 public final class SimpleBoardRenderer implements BoardRenderer {
-
 
     private static final int TILE_HEIGHT = 50;
     private static final int TILE_WIDTH = 50;
     private static final int WALL_SHORT_SIDE = 30;
-    private Image boardPiece; 
+    private Image boardPiece;
     private Image lakePiece;
     private Image bridgePiece;
 
@@ -33,14 +30,12 @@ public final class SimpleBoardRenderer implements BoardRenderer {
     public int wallShortSideLength() {
         return WALL_SHORT_SIDE;
     }
-    
+
     @Override
     public int playerOverfill() {
         return PLAYER_OVERFILL;
     }
 
-    
-    
     @Override
     public void drawTile(Graphics g, int x, int y) {
         try {
@@ -69,8 +64,9 @@ public final class SimpleBoardRenderer implements BoardRenderer {
                 throw new RuntimeException(e);
             }
             g.drawImage(lakePiece, x, y, Color.white);
-        }    
+        }
     }
+
     @Override
     public void drawNoWall(Graphics g, int x, int y, boolean horizontal) {
         if (horizontal) {
@@ -92,8 +88,8 @@ public final class SimpleBoardRenderer implements BoardRenderer {
 
     @Override
     public void drawCorner(Graphics g, int x, int y) {
-//        g.setColor(Color.green);
-//        g.fillRoundRect(x, y, WALL_SHORT_SIDE, WALL_SHORT_SIDE, 8);
+        // g.setColor(Color.green);
+        // g.fillRoundRect(x, y, WALL_SHORT_SIDE, WALL_SHORT_SIDE, 8);
         try {
             lakePiece = new Image("./assets/WaterEdge.jpg");
         } catch (SlickException e) {

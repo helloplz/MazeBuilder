@@ -38,4 +38,6 @@ public interface BoardRenderer {
      */
     void drawCorner(Graphics g, int x, int y);
 
+    int playerOverfill();
+
 }

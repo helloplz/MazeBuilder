@@ -10,6 +10,7 @@ public final class SimpleBoardRenderer implements BoardRenderer {
     private static final int TILE_HEIGHT = 64;
     private static final int TILE_WIDTH = 64;
     private static final int WALL_SHORT_SIDE = 16;
+    private static final int PLAYER_OVERFILL = 7;
 
     @Override
     public int tileHeight() {
@@ -24,6 +25,11 @@ public final class SimpleBoardRenderer implements BoardRenderer {
     @Override
     public int wallShortSideLength() {
         return WALL_SHORT_SIDE;
+    }
+    
+    @Override
+    public int playerOverfill() {
+        return PLAYER_OVERFILL;
     }
 
     @Override

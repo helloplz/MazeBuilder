@@ -16,10 +16,8 @@ public class ChaserWinState extends BasicGameState {
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        // TODO Auto-generated method stub
         this.game = game;
         this.gameContainer = container;
-
     }
 
     @Override

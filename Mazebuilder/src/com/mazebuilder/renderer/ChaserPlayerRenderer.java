@@ -7,9 +7,9 @@ import org.newdawn.slick.SlickException;
 
 public final class ChaserPlayerRenderer implements PlayerRenderer {
 
-    private final Image player;
+    private static final Image player;
 
-    public ChaserPlayerRenderer() {
+    static {
         try {
             player = new Image("./assets/Character Horn Girl.png");
         } catch (SlickException e) {

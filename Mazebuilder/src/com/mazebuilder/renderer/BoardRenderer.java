@@ -2,8 +2,6 @@ package com.mazebuilder.renderer;
 
 import org.newdawn.slick.Graphics;
 
-import com.mazebuilder.gameplay.Location;
-
 public interface BoardRenderer {
 
     int tileHeight();

@@ -208,7 +208,6 @@ public class GameplayState extends BasicGameState {
                 }
             }
         }
-        // TODO Check chaser win condition
         checkChaserWin();
     }
 
@@ -266,5 +265,6 @@ public class GameplayState extends BasicGameState {
                 }
             }
         }
+        checkChaserWin();
     }
 }

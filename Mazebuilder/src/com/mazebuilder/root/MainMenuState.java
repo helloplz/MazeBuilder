@@ -3,6 +3,7 @@ package com.mazebuilder.root;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -16,6 +17,8 @@ public class MainMenuState extends BasicGameState {
     static public final int ID = 0;
 
     private StateBasedGame game;
+    private Rectangle PlayButton;
+    private Rectangle HelpButton;
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -24,7 +27,11 @@ public class MainMenuState extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        g.drawString("Hello, Mazebuilder! [MainMenu]\n Click Anywhere to Start!!", 50, 100);
+        g.drawString("Hello, Mazebuilder! [MainMenu]", 50, 100);
+        g.draw(PlayButton = new Rectangle(48, 148, 100, 48));
+        g.draw(HelpButton = new Rectangle(48, 198, 100, 48));
+        g.drawString("Play", 50, 150);
+        g.drawString("Help", 50, 200);
     }
 
     @Override
@@ -33,7 +40,13 @@ public class MainMenuState extends BasicGameState {
 
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
-        game.enterState(GameplayState.ID);
+        if (PlayButton.contains(x, y)) {
+            game.enterState(GameplayState.ID);
+        }
+        if (HelpButton.contains(x, y)) {
+            game.enterState(HelpState.ID);
+        }
+
     }
 
     @Override

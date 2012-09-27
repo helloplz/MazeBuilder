@@ -31,7 +31,7 @@ public class MainMenuState extends BasicGameState {
         g.drawString("Hello, Mazebuilder! [MainMenu]", 50, 100);
         g.draw(realTimeMode = new Rectangle(48, 148, 200, 48));
         g.draw(turnBasedMode = new Rectangle(48, 198, 200, 48));
-        g.draw(turnBasedMode = new Rectangle(48, 248, 200, 48));
+        g.draw(credits = new Rectangle(48, 248, 200, 48));
         g.drawString("Play Real Time Mode", 50, 150);
         g.drawString("Play Turn Based Mode", 50, 200);
         g.drawString("Credits", 50, 250);
@@ -43,11 +43,12 @@ public class MainMenuState extends BasicGameState {
 
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
+        //TODO: "Correct modes on button click"
         if (realTimeMode.contains(x, y)) {
-            game.enterState(GameplayState.ID);
+            game.enterState(RealTimeHelpState.ID);
         }
         if (turnBasedMode.contains(x, y)) {
-            game.enterState(HelpState.ID);
+            game.enterState(TurnBasedHelpState.ID);
         }
         
         //TODO: "Credits Page"

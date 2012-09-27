@@ -4,6 +4,7 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.Music;
 
 import com.mazebuilder.sound.*;
 import com.mazebuilder.gameplay.players.Player;
@@ -49,5 +50,6 @@ public class MazebuilderGame extends StateBasedGame {
         // app.setSmoothDeltas(true);
 
         app.start();
+
     }
 }

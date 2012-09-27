@@ -6,6 +6,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.Music;
 
 import com.google.common.collect.Multiset;
 import com.mazebuilder.gameplay.Direction;
@@ -48,7 +49,8 @@ public class GameplayState extends BasicGameState {
     private int chaserTurnTimer;
     private StateBasedGame game;
     private boolean showMoves;
-
+    private Music backGroundMusic; 
+    
     /** Write initialization for the board here */
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -59,6 +61,9 @@ public class GameplayState extends BasicGameState {
         board.putWall(new SimpleLocation(INITIAL_WALLS_YPOS, INITIAL_WALLS_XPOS), Direction.RIGHT);
         runner.startTurn();
         gameContainer = container;
+        
+        backGroundMusic = new Music("./assets/sounds/mischief2.wav");
+        backGroundMusic.loop();
     }
 
     /** Each rendering step, draw the game here */

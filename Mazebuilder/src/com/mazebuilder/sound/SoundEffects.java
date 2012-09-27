@@ -2,7 +2,6 @@ package com.mazebuilder.sound;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
-import org.newdawn.slick.Music;
 
 public final class SoundEffects {
 
@@ -28,7 +27,6 @@ public final class SoundEffects {
         }
     }
 
-    
     public static void playPutWall() {
         putWall.play();
     }

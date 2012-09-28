@@ -15,11 +15,13 @@ public final class SimpleBoardRenderer implements BoardRenderer {
     private static final int TILE_HEIGHT = 50;
     private static final int TILE_WIDTH = 50;
     private static final int WALL_SHORT_SIDE = 30;
+    private static final int BOARDER_PLACE = 34;
 
     private static final Image boardPiece;
     private static final Image lakePieceHorizontal, lakePieceVertical;
     private static final Image bridgePieceHorizontal, bridgePieceVertical;
     private static final Image cornerPiece;
+    private static final Image boarder;
 
     static {
         try {
@@ -29,6 +31,7 @@ public final class SimpleBoardRenderer implements BoardRenderer {
             bridgePieceHorizontal = new Image("./assets/WaterWithBridgeHorz.jpg");
             bridgePieceVertical = new Image("./assets/WaterWithBridgeVert.jpg");
             cornerPiece = new Image("./assets/WaterEdge.jpg");
+            boarder = new Image("./assets/boarder.png");
         } catch (SlickException e) {
             throw new RuntimeException(e);
         }
@@ -36,6 +39,7 @@ public final class SimpleBoardRenderer implements BoardRenderer {
 
     private static final int PLAYER_OVERFILL = 7;
 
+    
     @Override
     public int tileHeight() {
         return TILE_HEIGHT;
@@ -86,6 +90,11 @@ public final class SimpleBoardRenderer implements BoardRenderer {
         // g.setColor(Color.green);
         // g.fillRoundRect(x, y, WALL_SHORT_SIDE, WALL_SHORT_SIDE, 8);
         g.drawImage(cornerPiece, x, y, Color.white);
+    }
+    
+    @Override
+    public void drawBoarder(Graphics g) {
+        g.drawImage(boarder, BOARDER_PLACE, BOARDER_PLACE,Color.white);
     }
     
 }

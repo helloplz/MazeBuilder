@@ -53,6 +53,7 @@ public final class DefaultBoard implements Board {
     }
 
     private void renderTileRow(Graphics g, int x, int y, int row) {
+        renderer.drawBoarder(g);
         renderer.drawTile(g, x, y);
         x += renderer.tileWidth();
         for (int j = 1; j < tilesAcross; j++) {

@@ -2,7 +2,6 @@ package com.mazebuilder.root;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
@@ -15,8 +14,6 @@ public class TurnBasedHelpState extends BasicGameState {
 
     private Rectangle MenuButton;
 
-    private Image HelpImg;
-
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
@@ -24,13 +21,15 @@ public class TurnBasedHelpState extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        g.drawString("HINT: the cake is a lie...", 50, 100);
-        try {
-            HelpImg = new Image("./assets/Help Screen.png");
-            g.drawImage(HelpImg, 10, 150);
-        } catch (SlickException e) {
-            throw new RuntimeException(e);
-        }
+        g.drawString("Game Paused! Click Anywhere to Continue", 50, 100);
+        g.drawString("INSTRUCTIONS:\n\n" + "--Runner (starts at top):\n" + "Get to the bottom of the board\n" + "without the chaser touching you!\n"
+                + "1) Click on a platform to move there\n" + "2) Click on a bridge to destroy it\n" + "   (Water is blue and impedes movement\n"
+                + "    for both players)\n\n" + "--Chaser (starts at bottom)\n" + "Catch the runner!\n" + "(Press q to see your movement cards\n"
+                + " q again to hide them)\n" + "1) w/a/s/d to move up/left/down/right\n" + "   (you can move twice per turn)\n"
+                + "2) W/A/S/D to use special movement card,\n" + "   which instantly moves you \n" + "   up/left/down/right\n"
+                + "3) You can jump over a wall if you have\n" + "   any two matching special movement cards.\n"
+                + "   To do this, move regularly into the wall\n" + "   then press the type of special movement\n" + "   card that you want to use\n"
+                + "4) Space to end your turn\n", 50, 150);
         g.draw(MenuButton = new Rectangle(48, 678, 100, 48));
         g.drawString("Main Menu", 50, 680);
     }

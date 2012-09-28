@@ -31,9 +31,11 @@ public class CreditsGameState extends BasicGameState {
         g.drawString("Programmers were Marco Alagna and Kevin Yue", 50, 225);
         g.drawString("Head of art and miscellaneous assets by Zachary Segal", 50, 250);
         g.drawString("Most beautiful unicorn was Marco Alagna", 50, 275);
-        g.drawString("Assets from 'The Independent Gaming Source's Assemblee Competition' were used with permission from the authors.", 50, 300);
+        g.drawString("Assets from 'The Independent Gaming Source's Assemblee Competition' were used", 50, 300);
+        g.drawString(" with permission from the authors.", 50, 325);
 
-        g.draw(MenuButton = new Rectangle(48, 323, 100, 48));
+        g.draw(MenuButton = new Rectangle(48, 383, 100, 48));
+        g.drawString("Back", 50, 385);
     }
 
     @Override

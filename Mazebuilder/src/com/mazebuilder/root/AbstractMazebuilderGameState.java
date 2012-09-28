@@ -35,17 +35,11 @@ public abstract class AbstractMazebuilderGameState extends BasicGameState {
     protected GameContainer gameContainer;
     protected StateBasedGame game;
 
-    protected final Board board = new DefaultBoard(new SimpleBoardRenderer(), BOARD_WIDTH, BOARD_HEIGHT);
-    protected final RunnerPlayer runner;
-    protected final ChaserPlayer chaser;
-    
-    SidebarRenderer sidebar;
+    protected Board board;
+    protected RunnerPlayer runner;
+    protected ChaserPlayer chaser;
 
-    protected AbstractMazebuilderGameState(RunnerPlayer runner, ChaserPlayer chaser) {
-        this.runner = runner;
-        this.chaser = chaser;
-        sidebar = new SidebarRenderer(chaser, runner);
-    }
+    SidebarRenderer sidebar;
 
     private Music backGroundMusic;
 
@@ -53,6 +47,10 @@ public abstract class AbstractMazebuilderGameState extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
+        runner = getRunner();
+        chaser = getChaser();
+        sidebar = new SidebarRenderer(chaser, runner);
+        board = new DefaultBoard(new SimpleBoardRenderer(), BOARD_WIDTH, BOARD_HEIGHT);
         board.addPlayerAtLocation(runner, new SimpleLocation(RUNNER_YPOS, RUNNER_XPOS));
         board.addPlayerAtLocation(chaser, new SimpleLocation(CHASER_YPOS, CHASER_XPOS));
         board.putWall(new SimpleLocation(INITIAL_WALLS_YPOS, INITIAL_WALLS_XPOS), Direction.LEFT);
@@ -112,6 +110,10 @@ public abstract class AbstractMazebuilderGameState extends BasicGameState {
         }
         checkChaserWin();
     }
+
+    protected abstract RunnerPlayer getRunner();
+
+    protected abstract ChaserPlayer getChaser();
 
     protected abstract void runnerMove();
 

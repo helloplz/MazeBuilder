@@ -30,9 +30,14 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
     private int runnerMoveTimer = 0;
     private int runnerWallTimer = 0;
 
-    protected RealtimeGameplayState() {
-        super(new RunnerPlayer(new RunnerPlayerRenderer(), "A", true, true), new ChaserPlayer(new ChaserPlayerRenderer(), "B", false,
-                Integer.MAX_VALUE, 0, true));
+    @Override
+    protected RunnerPlayer getRunner() {
+        return new RunnerPlayer(new RunnerPlayerRenderer(), "A", true, true);
+    }
+
+    @Override
+    protected ChaserPlayer getChaser() {
+        return new ChaserPlayer(new ChaserPlayerRenderer(), "B", false, Integer.MAX_VALUE, 0, true);
     }
 
     @Override

@@ -24,8 +24,14 @@ public class TurnBasedGameplayState extends AbstractMazebuilderGameState {
     private Direction jumping = null;
     private boolean showMoves = false;
 
-    public TurnBasedGameplayState() {
-        super(new RunnerPlayer(new RunnerPlayerRenderer(), "A"), new ChaserPlayer(new ChaserPlayerRenderer(), "B"));
+    @Override
+    protected RunnerPlayer getRunner() {
+        return new RunnerPlayer(new RunnerPlayerRenderer(), "A");
+    }
+
+    @Override
+    protected ChaserPlayer getChaser() {
+        return new ChaserPlayer(new ChaserPlayerRenderer(), "B");
     }
 
     @Override

@@ -29,6 +29,7 @@ public class MazebuilderGame extends StateBasedGame {
         addState(new ChaserWinState());
         addState(new CreditsGameState());
         addState(new TurnBasedHelpState());
+        addState(new RealTimeHelpState());
     }
 
     public Player getWinner() {

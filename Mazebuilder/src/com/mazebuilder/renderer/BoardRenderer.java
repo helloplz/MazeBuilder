@@ -2,6 +2,9 @@ package com.mazebuilder.renderer;
 
 import org.newdawn.slick.Graphics;
 
+import com.mazebuilder.gameplay.players.ChaserPlayer;
+import com.mazebuilder.gameplay.players.RunnerPlayer;
+
 public interface BoardRenderer {
 
     int tileHeight();
@@ -37,5 +40,4 @@ public interface BoardRenderer {
     void drawCorner(Graphics g, int x, int y);
 
     int playerOverfill();
-
 }

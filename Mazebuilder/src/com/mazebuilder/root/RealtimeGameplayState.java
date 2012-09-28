@@ -25,10 +25,19 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
     private static final int CHASER_MOVE_MILLIS = 5000;
     private static final int CHASER_JUMP_MILLIS = 20000;
 
-    private int chaserMoveTimer = CHASER_MOVE_MILLIS;
-    private int chaserJumpTimer = 0;
-    private int runnerMoveTimer = 0;
-    private int runnerWallTimer = 0;
+    private int chaserMoveTimer;
+    private int chaserJumpTimer;
+    private int runnerMoveTimer;
+    private int runnerWallTimer;
+    
+    @Override
+    public void init(GameContainer container, StateBasedGame game) throws SlickException {
+        super.init(container, game);
+        chaserMoveTimer = CHASER_MOVE_MILLIS;
+        chaserJumpTimer = 0;
+        runnerMoveTimer = 0;
+        runnerWallTimer = 0;
+    }
 
     @Override
     protected RunnerPlayer getRunner() {

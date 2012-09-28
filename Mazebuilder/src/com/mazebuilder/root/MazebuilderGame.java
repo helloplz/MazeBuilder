@@ -23,10 +23,12 @@ public class MazebuilderGame extends StateBasedGame {
     public void initStatesList(GameContainer gc) throws SlickException {
         // temporarily disabled for testing of GameplayState
         addState(new MainMenuState());
-        addState(new GameplayState());
+        addState(new TurnBasedGameplayState());
+        addState(new RealtimeGameplayState());
         addState(new RunnerWinState());
         addState(new ChaserWinState());
-        addState(new HelpState());
+        addState(new CreditsGameState());
+        addState(new TurnBasedHelpState());
     }
 
     public Player getWinner() {

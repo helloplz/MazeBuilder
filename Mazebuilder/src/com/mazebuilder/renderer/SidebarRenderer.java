@@ -31,6 +31,12 @@ public class SidebarRenderer {
                      actionBarY = moveBarY + moveBarHeight + 30,
                      actionBarHeight = moveBarHeight,
                      actionBarWidth = moveBarWidth;
+    static final int mainHelpY = 375,
+                     mainHelpHeight = 60,
+                     mainHelpWidth = 360;
+    static final int mainQuitY = 465,
+                     mainQuitHeight = 60,
+                     mainQuitWidth = 360;
     
     private static final Image mouse;
     private static final Image WASD;
@@ -138,11 +144,28 @@ public class SidebarRenderer {
             g.drawImage(WASD, (moveBarX-3*forfeitOffsetX)-30, moveBarY-1);
             g.drawImage(jumpWater,(moveBarX-3*forfeitOffsetX)-20, actionBarY-1);
         g.popTransform();
+        
+            g.setColor(Color.lightGray);
+            g.fillRoundRect(0, mainHelpY, mainHelpWidth, mainHelpHeight, 4);
+            g.fillRoundRect(0, mainQuitY, mainQuitWidth, mainQuitHeight, 4);
+            g.setColor(Color.darkGray);
+            g.drawString("HELP / PAUSE", 120, mainHelpY+20);
+            g.drawString("MENU / QUIT", 125, mainQuitY+20);
         g.setColor(Color.white);
     }
     
     public boolean runnerForfeitButtonClicked(int x, int y) {
         return x >= runnerQuit.getMinX() && x <= runnerQuit.getMaxX() &&
                y >= runnerQuit.getMinY() && y <= runnerQuit.getMaxY();
+    }
+    
+    public boolean helpButtonClicked(int x, int y) {
+        return x >= 0 && x <= mainHelpWidth && 
+               y >= mainHelpY && y <= mainHelpY + mainHelpHeight;
+    }
+    
+    public boolean quitButtonClicked(int x, int y) {
+        return x >= 0 && x <= mainQuitWidth && 
+               y >= mainQuitY && y <= mainQuitY + mainQuitHeight;
     }
 }

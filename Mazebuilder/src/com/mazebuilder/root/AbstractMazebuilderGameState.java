@@ -88,20 +88,20 @@ public abstract class AbstractMazebuilderGameState extends BasicGameState {
 
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
-        if (canRunnerMove()) {
+        Direction dir = board.getWallDirection(x - BOARD_XOFFSET, y - BOARD_YOFFSET);
+        if (dir == null && canRunnerMove()) {
             Location loc = board.getTile(x - BOARD_XOFFSET, y - BOARD_YOFFSET);
             if (loc != null) {
-                Direction dir = board.getPlayerLocation(runner).isAdjacent(loc);
-                if (dir != null) {
-                    if (board.movePlayer(runner, dir)) {
+                Direction dirc = board.getPlayerLocation(runner).isAdjacent(loc);
+                if (dirc != null) {
+                    if (board.movePlayer(runner, dirc)) {
                         runnerMove();
                     }
                 }
             }
-        } else if (canRunnerWall()) {
-            Direction dir = board.getWallDirection(x - BOARD_XOFFSET, y - BOARD_YOFFSET);
+        } else if (dir != null && canRunnerWall()) {
             Location loc = board.getTile(x - BOARD_XOFFSET, y - BOARD_YOFFSET);
-            if (dir != null && loc != null) {
+            if (loc != null) {
                 if (board.putWall(loc, dir)) {
                     if (runner.spendWall() == 0) {
                         chaser.startTurn();

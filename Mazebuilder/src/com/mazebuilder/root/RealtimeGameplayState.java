@@ -20,12 +20,12 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
 
     static public final int ID = 6;
 
-    private static final int RUNNER_MOVE_MILLIS = 5000;
-    private static final int RUNNER_WALL_MILLIS = 5000;
+    private static final int RUNNER_MOVE_MILLIS = 10000;
+    private static final int RUNNER_WALL_MILLIS = 10000;
     private static final int CHASER_MOVE_MILLIS = 5000;
     private static final int CHASER_JUMP_MILLIS = 20000;
 
-    private int chaserMoveTimer = 0;
+    private int chaserMoveTimer = CHASER_MOVE_MILLIS;
     private int chaserJumpTimer = 0;
     private int runnerMoveTimer = 0;
     private int runnerWallTimer = 0;

@@ -78,7 +78,6 @@ public class SidebarRenderer {
             g.setLineWidth(2);
             g.draw(runnerMoveBar);
             g.draw(runnerActionBar);
-            g.setColor(Color.green);
             g.draw(runnerQuit);
         
         g.setColor(new Color(0.5f, 0.5f, 1.0f));
@@ -109,7 +108,6 @@ public class SidebarRenderer {
             g.setLineWidth(2);
             g.draw(chaserMoveBar);
             g.draw(chaserActionBar);
-            g.setColor(Color.blue);
             g.draw(chaserQuit);
         
         g.popTransform();

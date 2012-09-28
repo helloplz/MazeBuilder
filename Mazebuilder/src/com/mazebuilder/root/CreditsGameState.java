@@ -34,6 +34,7 @@ public class CreditsGameState extends BasicGameState {
         g.drawString("Assets from 'The Independent Gaming Source's Assemblee Competition' were used with permission from the authors.", 50, 300);
 
         g.draw(MenuButton = new Rectangle(48, 323, 100, 48));
+        g.drawString("Back", 50, 325);
     }
 
     @Override

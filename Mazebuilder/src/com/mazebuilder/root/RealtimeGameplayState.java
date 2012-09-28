@@ -88,6 +88,10 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
         super.mouseClicked(button, x, y, clickCount);
         if (sidebar.runnerForfeitButtonClicked(x - 650, y - 64)) {
             game.enterState(ChaserWinState.ID);
+        } else if (sidebar.helpButtonClicked(x - 650,  y - 64)) {
+            System.out.println("HELP!");
+        } else if (sidebar.quitButtonClicked(x - 650, y - 64)) {
+            game.enterState(MainMenuState.ID);
         }
     }
 

@@ -41,7 +41,7 @@ public class MainMenuState extends BasicGameState {
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
         if (PlayButton.contains(x, y)) {
-            game.enterState(GameplayState.ID);
+            game.enterState(TurnBasedGameplayState.ID);
         }
         if (HelpButton.contains(x, y)) {
             game.enterState(HelpState.ID);

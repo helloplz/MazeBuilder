@@ -108,9 +108,8 @@ public final class DefaultBoard implements Board {
             int row = e.getValue().getRow();
             int column = e.getValue().getColumn();
             x = xOffset + (column * (renderer.tileWidth() + renderer.wallShortSideLength())) - renderer.playerOverfill();
-            y = yOffset + (row * (renderer.tileHeight() + renderer.wallShortSideLength())) - 2*renderer.playerOverfill();
-            e.getKey().render(g, x, y, renderer.tileWidth() + 2 * renderer.playerOverfill(), 
-                                       renderer.tileHeight() + 2 * renderer.playerOverfill());
+            y = yOffset + (row * (renderer.tileHeight() + renderer.wallShortSideLength())) - 2 * renderer.playerOverfill();
+            e.getKey().render(g, x, y, renderer.tileWidth() + 2 * renderer.playerOverfill(), renderer.tileHeight() + 2 * renderer.playerOverfill());
         }
     }
 
@@ -158,7 +157,7 @@ public final class DefaultBoard implements Board {
     }
 
     @Override
-    public Location jumpPlayer(Player p, Direction d, Direction... bonusesToSpend) {
+    public boolean jumpPlayer(Player p, Direction d, Direction... bonusesToSpend) {
         Preconditions.checkArgument(p.canJump(), "Player " + p.getName() + " cannot jump walls.");
         Location l = getPlayerLocation(p);
         if (walls.isWall(l, d)) {
@@ -170,7 +169,7 @@ public final class DefaultBoard implements Board {
                     Direction b = bonusesToSpend[0];
                     for (Direction bonus : bonusesToSpend) {
                         if (!b.equals(bonus)) {
-                            return l;
+                            return false;
                         }
                     }
                 }
@@ -178,11 +177,11 @@ public final class DefaultBoard implements Board {
                 for (Direction bonus : bonusesToSpend) {
                     p.spendBonus(bonus);
                 }
-                l = moved;
-                players.put(p, l);
+                players.put(p, moved);
+                return true;
             }
         }
-        return l;
+        return false;
     }
 
     @Override

@@ -14,9 +14,10 @@ import com.mazebuilder.sound.SoundEffects;
 
 public final class ChaserPlayer implements Player {
 
-    private static final boolean BONUSES_EQUAL = true;
-    private static final int BONUS_INTERVAL = 2;
-    private static final int BONUSES_TO_JUMP = 2;
+    public static final boolean DEFAULT_BONUSES_EQUAL = true;
+    public static final int DEFAULT_BONUS_INTERVAL = 2;
+    public static final int DEFAULT_BONUSES_TO_JUMP = 2;
+
     private static final int MOVEMENTS_PER_TURN = 2;
     private static final int STARTING_BONUS_MOVEMENTS = 1;
 
@@ -26,19 +27,33 @@ public final class ChaserPlayer implements Player {
     private final Multiset<Direction> bonuses;
     private final Random rand;
 
+    private final boolean bonusesEqual;
+    private final int bonusInterval;
+    private final int bonusesToJump;
+    private final boolean overrideMoveCounter;
+
     private int turnsToBonus;
     private int remainingMoves;
 
     public ChaserPlayer(PlayerRenderer renderer, String name) {
+        this(renderer, name, DEFAULT_BONUSES_EQUAL, DEFAULT_BONUS_INTERVAL, DEFAULT_BONUSES_TO_JUMP, false);
+    }
+
+    public ChaserPlayer(PlayerRenderer renderer, String name, boolean bonusesEqual, final int bonusInterval, int bonusesToJump,
+            boolean overrideMoveCounter) {
         this.renderer = renderer;
         this.name = name;
         this.bonuses = EnumMultiset.create(Direction.class);
         this.rand = new Random();
-        
-        for(int i = 0; i < STARTING_BONUS_MOVEMENTS; i++){
+
+        for (int i = 0; i < STARTING_BONUS_MOVEMENTS; i++) {
             newBonus();
         }
-        this.turnsToBonus = BONUS_INTERVAL + 1;
+        this.bonusesEqual = bonusesEqual;
+        this.bonusesToJump = bonusesToJump;
+        this.bonusInterval = bonusInterval;
+        this.turnsToBonus = bonusInterval + 1;
+        this.overrideMoveCounter = overrideMoveCounter;
     }
 
     @Override
@@ -73,9 +88,9 @@ public final class ChaserPlayer implements Player {
         System.out.println("CHASER PLAYER HAS THE FOLLOWING BONUSES:");
         System.out.println(getBonuses());
     }
-    
-    public void newBonus(){
-        turnsToBonus = BONUS_INTERVAL;
+
+    private void newBonus() {
+        turnsToBonus = bonusInterval;
         switch (rand.nextInt(4)) {
         case 0:
             bonuses.add(Direction.LEFT);
@@ -99,12 +114,12 @@ public final class ChaserPlayer implements Player {
 
     @Override
     public int bonusesToJump() {
-        return BONUSES_TO_JUMP;
+        return bonusesToJump;
     }
 
     @Override
     public boolean bonusesEqual() {
-        return BONUSES_EQUAL;
+        return bonusesEqual;
     }
 
     @Override
@@ -115,10 +130,9 @@ public final class ChaserPlayer implements Player {
         return bonuses.remove(d);
     }
 
-
     @Override
     public boolean canMove() {
-        return remainingMoves > 0;
+        return overrideMoveCounter || remainingMoves > 0;
     }
 
     @Override
@@ -126,9 +140,9 @@ public final class ChaserPlayer implements Player {
         SoundEffects.playChaserMove();
         return --remainingMoves;
     }
-    
-    public boolean hasBonuses(Direction...directions) {
+
+    public boolean hasBonuses(Direction... directions) {
         return bonuses.containsAll(Arrays.asList(directions));
     }
-    
+
 }

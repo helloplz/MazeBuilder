@@ -17,14 +17,22 @@ public final class RunnerPlayer implements Player {
     private final String name;
     private final String type = "runner";
     private final Multiset<Direction> bonuses;
+    private final boolean overrideMoveCounter;
+    private final boolean overrideWallCounter;
 
     private int remainingMoves;
     private int remainingWalls;
 
     public RunnerPlayer(PlayerRenderer renderer, String name) {
+        this(renderer, name, false, false);
+    }
+
+    public RunnerPlayer(PlayerRenderer renderer, String name, boolean overrideMoveCounter, boolean overrideWallCounter) {
         this.renderer = renderer;
         this.name = name;
         this.bonuses = EnumMultiset.create(Direction.class);
+        this.overrideMoveCounter = overrideMoveCounter;
+        this.overrideWallCounter = overrideWallCounter;
     }
 
     @Override
@@ -76,7 +84,7 @@ public final class RunnerPlayer implements Player {
 
     @Override
     public boolean canMove() {
-        return remainingMoves > 0;
+        return overrideMoveCounter || remainingMoves > 0;
     }
 
     @Override
@@ -86,7 +94,7 @@ public final class RunnerPlayer implements Player {
     }
 
     public boolean canWall() {
-        return remainingWalls > 0;
+        return overrideWallCounter || remainingWalls > 0;
     }
 
     public int spendWall() {

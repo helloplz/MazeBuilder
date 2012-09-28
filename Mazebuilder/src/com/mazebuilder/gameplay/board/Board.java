@@ -20,22 +20,19 @@ public interface Board extends Renderable {
     Location getPlayerLocation(Player p);
 
     /**
-     * Will return true if the move was completed. Does not jump walls. Uses identity (==)
-     * comparisons.
+     * Will return true if the move was completed. Does not jump walls. Uses identity (==) comparisons.
      **/
     boolean movePlayer(Player p, Direction d);
 
     /**
-     * Will return true if the move was completed. Does not jump walls. Uses identity (==)
-     * comparisons.
+     * Will return true if the move was completed. Does not jump walls. Uses identity (==) comparisons.
      **/
     boolean movePlayerWithBonus(Player p, Direction d);
 
     /**
-     * Returns the new location of the given player. Will return the same location if the move is impossible (player cannot jump or no wall to jump).
-     * Uses identity (==) comparisons.
+     * Will return false if the move is impossible (player cannot jump or no wall to jump). Uses identity (==) comparisons.
      **/
-    Location jumpPlayer(Player p, Direction d, Direction... bonusesToSpend);
+    boolean jumpPlayer(Player p, Direction d, Direction... bonusesToSpend);
 
     /**
      * Sets a wall on the given tile, in the direction given. Returns true if the wall was successfully set, false otherwise (if a wall is already
@@ -45,6 +42,7 @@ public interface Board extends Renderable {
 
     /**
      * Return the location of the nearest tile to the pixel coordinates given
+     * 
      * @return null if the cursor position is out of bounds
      */
     Location getTile(int x, int y);

@@ -22,10 +22,10 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
 
     private static final int MAX_RUNNER_MOVE_MILLIS = 5000;
     private static final int MAX_RUNNER_WALL_MILLIS = 6500;
-    private static final int MAX_CHASER_MOVE_MILLIS = 3000;
+    private static final int MAX_CHASER_MOVE_MILLIS = 4000;
     private static final int MAX_CHASER_JUMP_MILLIS = 25000;
 
-    private static final int CHASER_INVERSE_SCALING = 10;
+    private static final int CHASER_INVERSE_SCALING = 7;
 
     private double RUNNER_MOVE_MILLIS = MAX_RUNNER_MOVE_MILLIS;
     private double RUNNER_WALL_MILLIS = MAX_RUNNER_WALL_MILLIS;

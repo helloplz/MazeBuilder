@@ -43,9 +43,9 @@ public class MainMenuState extends BasicGameState {
 
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
-        //TODO: "Correct modes on button click"
+        // TODO: "Correct modes on button click"
         if (realTimeMode.contains(x, y)) {
-            game.enterState(RealTimeHelpState.ID);
+            game.enterState(RealtimeGameplayState.ID); // RealTimeHelpState.ID);
         }
         if (turnBasedMode.contains(x, y)) {
             game.enterState(TurnBasedHelpState.ID);

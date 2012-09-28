@@ -33,7 +33,6 @@ public class CreditsGameState extends BasicGameState {
         g.drawString("Most beautiful unicorn was Marco Alagna", 50, 275);
         g.drawString("Unmentioned assets were found in 'The Independent Gaming Source's Assemblee Competition'",50,300);
         g.drawString("Main Menu", 50, 323);
-
         
         g.draw(MenuButton = new Rectangle(48, 323, 100, 48));
     }

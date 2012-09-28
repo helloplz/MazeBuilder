@@ -194,14 +194,20 @@ public class TurnBasedGameplayState extends AbstractMazebuilderGameState {
 
     @Override
     protected void postRender(GameContainer container, StateBasedGame game, Graphics g) {
+        g.pushTransform();
+        g.translate(650, 34);
+        sidebar.drawSidebar(g, runner.canMove() ? 1 : 0, runner.canWall() ? 1 : 0,
+                chaser.canMove() ? 1 : 0, chaser.getBonuses().size() > 0 ? 1 : 0);
+        g.popTransform();
+        
         if (showMoves) {
             g.drawString(chaser.getBonuses().toString(), 650, 640);
         }
 
         if (canRunnerMove() || canRunnerWall()) {
-            g.drawString("Runner's Turn!", 625, 64);
+            g.drawString("Runner's Turn! (Press 'space' to end)", 650, 420);
         } else {
-            g.drawString("Chaser's Turn!", 625, 64);
+            g.drawString("Chaser's Turn!", 650, 420);
         }
     }
 
@@ -215,4 +221,15 @@ public class TurnBasedGameplayState extends AbstractMazebuilderGameState {
         // no-op
     }
 
+    @Override
+    public void mouseClicked(int button, int x, int y, int clickCount) {
+        super.mouseClicked(button, x, y, clickCount);
+        if (sidebar.runnerForfeitButtonClicked(x - 650, y - 34)) {
+            game.enterState(ChaserWinState.ID);
+        } else if (sidebar.helpButtonClicked(x - 650, y - 34)) {
+            game.enterState(TurnBasedHelpState.ID);
+        } else if (sidebar.quitButtonClicked(x - 650, y - 34)) {
+            game.enterState(MainMenuState.ID);
+        }
+    }
 }

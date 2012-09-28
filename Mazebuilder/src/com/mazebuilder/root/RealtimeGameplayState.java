@@ -108,18 +108,6 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
     }
 
     @Override
-    public void mouseClicked(int button, int x, int y, int clickCount) {
-        super.mouseClicked(button, x, y, clickCount);
-        if (sidebar.runnerForfeitButtonClicked(x - 650, y - 64)) {
-            game.enterState(ChaserWinState.ID);
-        } else if (sidebar.helpButtonClicked(x - 650, y - 64)) {
-            game.enterState(RealTimeHelpState.ID);
-        } else if (sidebar.quitButtonClicked(x - 650, y - 64)) {
-            game.enterState(MainMenuState.ID);
-        }
-    }
-
-    @Override
     protected void runnerMove() {
         runnerMoveTimer = 0;
     }
@@ -160,10 +148,21 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
     @Override
     protected void postRender(GameContainer container, StateBasedGame game, Graphics g) {
         g.pushTransform();
-        g.translate(650, 64);
+        g.translate(650, 34);
         sidebar.drawSidebar(g, (runnerMoveTimer) / RUNNER_MOVE_MILLIS, (runnerWallTimer) / RUNNER_WALL_MILLIS,
                 (chaserMoveTimer) / CHASER_MOVE_MILLIS, (chaserJumpTimer) / CHASER_JUMP_MILLIS);
         g.popTransform();
     }
 
+    @Override
+    public void mouseClicked(int button, int x, int y, int clickCount) {
+        super.mouseClicked(button, x, y, clickCount);
+        if (sidebar.runnerForfeitButtonClicked(x - 650, y - 34)) {
+            game.enterState(ChaserWinState.ID);
+        } else if (sidebar.helpButtonClicked(x - 650, y - 34)) {
+            game.enterState(RealTimeHelpState.ID);
+        } else if (sidebar.quitButtonClicked(x - 650, y - 34)) {
+            game.enterState(MainMenuState.ID);
+        }
+    }
 }

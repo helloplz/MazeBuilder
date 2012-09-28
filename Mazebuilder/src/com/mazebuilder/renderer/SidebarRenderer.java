@@ -31,10 +31,10 @@ public class SidebarRenderer {
                      actionBarY = moveBarY + moveBarHeight + 30,
                      actionBarHeight = moveBarHeight,
                      actionBarWidth = moveBarWidth;
-    static final int mainHelpY = 375,
+    static final int mainHelpY = 540,
                      mainHelpHeight = 60,
                      mainHelpWidth = 360;
-    static final int mainQuitY = 465,
+    static final int mainQuitY = 630,
                      mainQuitHeight = 60,
                      mainQuitWidth = 360;
     
@@ -86,14 +86,14 @@ public class SidebarRenderer {
             
             g.setLineWidth(1);
             runner.render(g, playerX, playerY, playerWidth, playerHeight);
-            if (runnerMove > 1) {
+            if (runnerMove >= 1) {
                 g.setColor(Color.yellow);
                 g.fillRect(moveBarX, moveBarY, moveBarWidth, moveBarHeight);
             } else {
                 g.setColor(Color.gray);
                 g.fillRect(moveBarX, moveBarY, moveBarWidth*(float)runnerMove, moveBarHeight);
             }
-            if (runnerAction > 1) {
+            if (runnerAction >= 1) {
                 g.setColor(Color.yellow);
                 g.fillRect(actionBarX, actionBarY, actionBarWidth, actionBarHeight);
             } else {
@@ -120,14 +120,14 @@ public class SidebarRenderer {
             
             g.setLineWidth(1);
             chaser.render(g, playerX, playerY, playerWidth, playerHeight);
-            if (chaserMove > 1) {
+            if (chaserMove >= 1) {
                 g.setColor(Color.yellow);
                 g.fillRect(moveBarX, moveBarY, moveBarWidth, moveBarHeight);
             } else {
                 g.setColor(Color.gray);
                 g.fillRect(moveBarX, moveBarY, moveBarWidth*(float)chaserMove, moveBarHeight);
             }
-            if (chaserAction > 1) {
+            if (chaserAction >= 1) {
                 g.setColor(Color.yellow);
                 g.fillRect(actionBarX, actionBarY, actionBarWidth, actionBarHeight);
             } else {

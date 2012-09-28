@@ -47,6 +47,7 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
         chaserJumpTimer += delta;
         runnerMoveTimer += delta;
         runnerWallTimer += delta;
+        checkRunnerWin();
     }
 
     /**
@@ -70,13 +71,13 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
     @Override
     public void keyPressed(int key, char c) {
         Direction dir = extractDirectionFromChar(c);
-        System.out.println(dir.toString());
         if (dir != null) {
             if (canChaserMove() && board.movePlayer(chaser, dir)) {
                 chaserMove();
             } else if (canChaserJump() && board.jumpPlayer(chaser, dir)) {
                 chaserJump();
             }
+            checkChaserWin();
         }
     }
 

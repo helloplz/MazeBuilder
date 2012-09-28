@@ -23,17 +23,16 @@ public class CreditsGameState extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         g.drawString("CREDITS", 50, 75);
-        g.drawString("Characters were found in the PlanetCutePNG library made by Daniel Cook", 50, 100);
+        g.drawString("Character assets are used with permission from the PlanetCutePNG library made by Daniel Cook", 50, 100);
         g.drawString("Music was made by Zachary Segal and Kyle Wong", 50, 125);
         g.drawString("Sound effects were made by Zachary Segal", 50, 150);
-        g.drawString("Game design by Kevin Yue, David Xiao and Predrag", 50,175);
-        g.drawString("Lead Game Programmers were Predrag and David Xiao", 50, 200);
+        g.drawString("Game design by Kevin Yue, David Xiao and Predrag Gruevski", 50, 175);
+        g.drawString("Lead Game Programmers were Predrag Gruevski and David Xiao", 50, 200);
         g.drawString("Programmers were Marco Alagna and Kevin Yue", 50, 225);
-        g.drawString("Head of art and miscellaneous assets by Zachary Segal",50, 250);
+        g.drawString("Head of art and miscellaneous assets by Zachary Segal", 50, 250);
         g.drawString("Most beautiful unicorn was Marco Alagna", 50, 275);
-        g.drawString("Unmentioned assets were found in 'The Independent Gaming Source's Assemblee Competition'",50,300);
-        g.drawString("Main Menu", 50, 323);
-        
+        g.drawString("Assets from 'The Independent Gaming Source's Assemblee Competition' were used with permission from the authors.", 50, 300);
+
         g.draw(MenuButton = new Rectangle(48, 323, 100, 48));
     }
 

@@ -50,9 +50,9 @@ public class MainMenuState extends BasicGameState {
         if (turnBasedMode.contains(x, y)) {
             game.enterState(TurnBasedHelpState.ID);
         }
-        
-        //TODO: "Credits Page"
-
+        if (credits.contains(x, y)) {
+            game.enterState(CreditsGameState.ID);
+        }
     }
 
     @Override

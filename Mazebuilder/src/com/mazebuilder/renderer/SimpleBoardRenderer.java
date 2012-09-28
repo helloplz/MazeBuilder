@@ -4,6 +4,11 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.RoundedRectangle;
+
+import com.mazebuilder.gameplay.players.ChaserPlayer;
+import com.mazebuilder.gameplay.players.RunnerPlayer;
 
 public final class SimpleBoardRenderer implements BoardRenderer {
 
@@ -82,4 +87,5 @@ public final class SimpleBoardRenderer implements BoardRenderer {
         // g.fillRoundRect(x, y, WALL_SHORT_SIDE, WALL_SHORT_SIDE, 8);
         g.drawImage(cornerPiece, x, y, Color.white);
     }
+    
 }

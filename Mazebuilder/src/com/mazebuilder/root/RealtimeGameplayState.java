@@ -20,12 +20,12 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
 
     static public final int ID = 6;
 
-    private static final int RUNNER_MOVE_MILLIS = 50;
-    private static final int RUNNER_WALL_MILLIS = 50;
-    private static final int CHASER_MOVE_MILLIS = 50;
-    private static final int CHASER_JUMP_MILLIS = 200;
+    private static final int RUNNER_MOVE_MILLIS = 10000;
+    private static final int RUNNER_WALL_MILLIS = 10000;
+    private static final int CHASER_MOVE_MILLIS = 5000;
+    private static final int CHASER_JUMP_MILLIS = 20000;
 
-    private int chaserMoveTimer = 0;
+    private int chaserMoveTimer = CHASER_MOVE_MILLIS;
     private int chaserJumpTimer = 0;
     private int runnerMoveTimer = 0;
     private int runnerWallTimer = 0;
@@ -83,6 +83,16 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
                 chaserJump();
             }
             checkChaserWin();
+        } else if (c == 't') {
+            game.enterState(RunnerWinState.ID);
+        }
+    }
+    
+    @Override
+    public void mouseClicked(int button, int x, int y, int clickCount) {
+        super.mouseClicked(button, x, y, clickCount);
+        if (sidebar.runnerForfeitButtonClicked(x - 650, y - 64)) {
+            game.enterState(ChaserWinState.ID);
         }
     }
 
@@ -126,7 +136,13 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
 
     @Override
     protected void postRender(GameContainer container, StateBasedGame game, Graphics g) {
-        // no-op
+        g.pushTransform();
+        g.translate(650, 64);
+        sidebar.drawSidebar(g, ((double)runnerMoveTimer)/RUNNER_MOVE_MILLIS,
+                               ((double)runnerWallTimer)/RUNNER_WALL_MILLIS,
+                               ((double)chaserMoveTimer)/CHASER_MOVE_MILLIS,
+                               ((double)chaserJumpTimer)/CHASER_JUMP_MILLIS);
+        g.popTransform();
     }
 
 }

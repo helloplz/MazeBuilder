@@ -1,8 +1,10 @@
 package com.mazebuilder.gameplay.board;
 
+import java.awt.Font;
 import java.util.Map;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.UnicodeFont;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;

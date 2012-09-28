@@ -15,6 +15,7 @@ import com.mazebuilder.gameplay.board.Board;
 import com.mazebuilder.gameplay.board.DefaultBoard;
 import com.mazebuilder.gameplay.players.ChaserPlayer;
 import com.mazebuilder.gameplay.players.RunnerPlayer;
+import com.mazebuilder.renderer.SidebarRenderer;
 import com.mazebuilder.renderer.SimpleBoardRenderer;
 
 public abstract class AbstractMazebuilderGameState extends BasicGameState {
@@ -38,6 +39,8 @@ public abstract class AbstractMazebuilderGameState extends BasicGameState {
     protected RunnerPlayer runner;
     protected ChaserPlayer chaser;
 
+    SidebarRenderer sidebar;
+
     private Music backGroundMusic;
 
     /** Write initialization for the board here */
@@ -46,6 +49,7 @@ public abstract class AbstractMazebuilderGameState extends BasicGameState {
         this.game = game;
         runner = getRunner();
         chaser = getChaser();
+        sidebar = new SidebarRenderer(chaser, runner);
         board = new DefaultBoard(new SimpleBoardRenderer(), BOARD_WIDTH, BOARD_HEIGHT);
         board.addPlayerAtLocation(runner, new SimpleLocation(RUNNER_YPOS, RUNNER_XPOS));
         board.addPlayerAtLocation(chaser, new SimpleLocation(CHASER_YPOS, CHASER_XPOS));
@@ -64,15 +68,6 @@ public abstract class AbstractMazebuilderGameState extends BasicGameState {
         board.render(g, BOARD_XOFFSET, BOARD_YOFFSET);
         // g.drawString("Hello, Mazebuilder! [Gameplay]", 50, 100);
         g.setColor(Color.white);
-
-        g.drawString("INSTRUCTIONS:\n\n" + "--Runner (starts at top):\n" + "Get to the bottom of the board\n" + "without the chaser touching you!\n"
-                + "1) Click on a square to move there\n" + "2) THEN click on an edge to place a wall\n" + "   (Walls are red and impede movement\n"
-                + "    for both players)\n\n" + "--Chaser (starts at bottom)\n" + "Catch the runner!\n" + "(Press q to see your movement cards\n"
-                + " q again to hide them)\n" + "1) w/a/s/d to move up/left/down/right\n" + "   (you can move twice per turn)\n"
-                + "2) W/A/S/D to use special movement card,\n" + "   which instantly moves you \n" + "   up/left/down/right\n"
-                + "3) You can jump over a wall if you have\n" + "   any two matching special movement cards.\n"
-                + "   To do this, move regularly into the wall\n" + "   then press the type of special movement\n" + "   card that you want to use\n"
-                + "4) Space to end your turn\n", 625, 100);
 
         postRender(container, game, g);
     }
@@ -117,9 +112,9 @@ public abstract class AbstractMazebuilderGameState extends BasicGameState {
     }
 
     protected abstract RunnerPlayer getRunner();
-    
+
     protected abstract ChaserPlayer getChaser();
-    
+
     protected abstract void runnerMove();
 
     protected abstract void runnerWall();

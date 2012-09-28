@@ -8,7 +8,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class HelpState extends BasicGameState {
+public class TurnBasedHelpState extends BasicGameState {
     static public final int ID = 4;
 
     private StateBasedGame game;

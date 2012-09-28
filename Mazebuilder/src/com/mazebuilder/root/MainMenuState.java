@@ -17,8 +17,9 @@ public class MainMenuState extends BasicGameState {
     static public final int ID = 0;
 
     private StateBasedGame game;
-    private Rectangle PlayButton;
-    private Rectangle HelpButton;
+    private Rectangle realTimeMode;
+    private Rectangle turnBasedMode;
+    private Rectangle credits;
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
@@ -28,10 +29,12 @@ public class MainMenuState extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         g.drawString("Hello, Mazebuilder! [MainMenu]", 50, 100);
-        g.draw(PlayButton = new Rectangle(48, 148, 100, 48));
-        g.draw(HelpButton = new Rectangle(48, 198, 100, 48));
-        g.drawString("Play", 50, 150);
-        g.drawString("Help", 50, 200);
+        g.draw(realTimeMode = new Rectangle(48, 148, 200, 48));
+        g.draw(turnBasedMode = new Rectangle(48, 198, 200, 48));
+        g.draw(credits = new Rectangle(48, 248, 200, 48));
+        g.drawString("Play Real Time Mode", 50, 150);
+        g.drawString("Play Turn Based Mode", 50, 200);
+        g.drawString("Credits", 50, 250);
     }
 
     @Override
@@ -40,13 +43,16 @@ public class MainMenuState extends BasicGameState {
 
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
-        if (PlayButton.contains(x, y)) {
-            game.enterState(TurnBasedGameplayState.ID);
+        // TODO: "Correct modes on button click"
+        if (realTimeMode.contains(x, y)) {
+            game.enterState(RealtimeGameplayState.ID); // RealTimeHelpState.ID);
         }
-        if (HelpButton.contains(x, y)) {
-            game.enterState(HelpState.ID);
+        if (turnBasedMode.contains(x, y)) {
+            game.enterState(TurnBasedHelpState.ID);
         }
-
+        if (credits.contains(x, y)) {
+            game.enterState(CreditsGameState.ID);
+        }
     }
 
     @Override

@@ -124,6 +124,7 @@ public class TurnBasedGameplayState extends AbstractMazebuilderGameState {
                 break;
             case ' ':
                 if (!runner.canMove() && !runner.canWall()) {
+                    chaser.endTurn();
                     checkRunnerWin();
                     runner.startTurn();
                 }

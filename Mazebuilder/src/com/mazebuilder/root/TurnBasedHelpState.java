@@ -43,6 +43,8 @@ public class TurnBasedHelpState extends BasicGameState {
     public void mouseClicked(int button, int x, int y, int clickCount) {
         if (MenuButton.contains(x, y)) {
             game.enterState(MainMenuState.ID);
+        } else {
+            game.enterState(TurnBasedGameplayState.ID);
         }
     }
 

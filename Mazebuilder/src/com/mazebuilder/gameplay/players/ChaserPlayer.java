@@ -34,6 +34,7 @@ public final class ChaserPlayer implements Player {
 
     private int turnsToBonus;
     private int remainingMoves;
+    private boolean turnEnded = true;
 
     public ChaserPlayer(PlayerRenderer renderer, String name) {
         this(renderer, name, DEFAULT_BONUSES_EQUAL, DEFAULT_BONUS_INTERVAL, DEFAULT_BONUSES_TO_JUMP, false);
@@ -79,6 +80,7 @@ public final class ChaserPlayer implements Player {
     @Override
     public void startTurn() {
         System.out.println("Chaser's turn!");
+        turnEnded = false;
         remainingMoves = MOVEMENTS_PER_TURN;
         turnsToBonus--;
         if (turnsToBonus == 0) {
@@ -124,6 +126,10 @@ public final class ChaserPlayer implements Player {
 
     @Override
     public boolean spendBonus(Direction d) {
+        if (turnEnded) {
+            return false;
+        }
+
         if (bonuses.contains(d)) {
             System.out.println("Chaser has used a bonus \"" + d.toString() + "\" move");
         }
@@ -137,12 +143,22 @@ public final class ChaserPlayer implements Player {
 
     @Override
     public int spendMove() {
+        if (turnEnded) {
+            return 0;
+        }
+
         SoundEffects.playChaserMove();
         return --remainingMoves;
     }
 
     public boolean hasBonuses(Direction... directions) {
         return bonuses.containsAll(Arrays.asList(directions));
+    }
+
+    @Override
+    public void endTurn() {
+        remainingMoves = 0;
+        turnEnded = true;
     }
 
 }

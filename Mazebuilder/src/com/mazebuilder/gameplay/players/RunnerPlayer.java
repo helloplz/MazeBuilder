@@ -101,4 +101,9 @@ public final class RunnerPlayer implements Player {
         SoundEffects.playPutWall();
         return --remainingWalls;
     }
+
+    @Override
+    public void endTurn() {
+        // no-op
+    }
 }

@@ -16,6 +16,9 @@ public interface Player {
     /** Should be called every turn -- will handle matters such as generating movement bonuses etc. **/
     void startTurn();
 
+    /** Will prevent moving after end of turn. **/
+    void endTurn();
+
     /** Returns the set of bonuses for the player. **/
     Multiset<Direction> getBonuses();
 

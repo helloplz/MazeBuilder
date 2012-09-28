@@ -21,14 +21,17 @@ public class SidebarRenderer {
                      playerY = 15,
                      playerHeight = 64,
                      playerWidth = 64;
-    static final int moveBarX = 150,
+    static final int moveBarX = 195,
                      moveBarY = 15,
                      moveBarHeight = 45,
                      moveBarWidth = 150;
     static final int actionBarX = moveBarX,
-                     actionBarY = 75,
+                     actionBarY = moveBarY + moveBarHeight + 30,
                      actionBarHeight = moveBarHeight,
                      actionBarWidth = moveBarWidth;
+    
+    static final Color darkGreen = new Color(0, 0.5f, 0);
+    static final Color darkBlue = new Color(0, 0, 0.5f);
                      
     
     ChaserPlayer chaser;
@@ -39,7 +42,8 @@ public class SidebarRenderer {
     Rectangle runnerActionBar = new RoundedRectangle(actionBarX, actionBarY, actionBarWidth, actionBarHeight,3);
     Rectangle runnerQuit = new RoundedRectangle(forfeitOffsetX, forfeitOffsetY, forfeitWidth, forfeitHeight, 3);
     Rectangle chaserInfoRect = new RoundedRectangle(0, 0, infoRectWidth, infoRectHeight, 4);
-    Rectangle chaserMoveBar = new RoundedRectangle(actionBarX, actionBarY, actionBarWidth, actionBarHeight,3);
+    Rectangle chaserMoveBar = new RoundedRectangle(moveBarX, moveBarY, moveBarWidth, moveBarHeight,3);
+    Rectangle chaserActionBar = new RoundedRectangle(actionBarX, actionBarY, actionBarWidth, actionBarHeight,3);
     Rectangle chaserQuit = new RoundedRectangle(forfeitOffsetX, forfeitOffsetY, forfeitWidth, forfeitHeight, 3);
     
     public SidebarRenderer (ChaserPlayer chaser, RunnerPlayer runner) {
@@ -47,32 +51,71 @@ public class SidebarRenderer {
         this.runner = runner;
     }
     
-    public void drawSidebar(Graphics g) {
-        g.setColor(Color.green);
+    public void drawSidebar(Graphics g, double runnerMove, double runnerAction, double chaserMove, double chaserAction) {
+        g.setColor(new Color(0.5f, 1.0f, 0.5f));
         
             g.setLineWidth(4);
-            g.draw(runnerInfoRect);
-            g.setLineWidth(3);
+            g.fill(runnerInfoRect);
             
+            g.setLineWidth(1);
             runner.render(g, playerX, playerY, playerWidth, playerHeight);
+            if (runnerMove > 1) {
+                g.setColor(Color.yellow);
+                g.fillRect(moveBarX, moveBarY, moveBarWidth, moveBarHeight);
+            } else {
+                g.setColor(Color.gray);
+                g.fillRect(moveBarX, moveBarY, moveBarWidth*(float)runnerMove, moveBarHeight);
+            }
+            if (runnerAction > 1) {
+                g.setColor(Color.yellow);
+                g.fillRect(actionBarX, actionBarY, actionBarWidth, actionBarHeight);
+            } else {
+                g.setColor(Color.gray);
+                g.fillRect(actionBarX, actionBarY, actionBarWidth*(float)runnerAction, actionBarHeight);
+            }
+            g.setColor(darkGreen);
             g.drawString("CLICK\nto forfeit", forfeitOffsetX+10, forfeitOffsetY+5);
+            g.setLineWidth(2);
             g.draw(runnerMoveBar);
             g.draw(runnerActionBar);
+            g.setColor(Color.green);
             g.draw(runnerQuit);
         
-        g.setColor(Color.blue);
+        g.setColor(new Color(0.5f, 0.5f, 1.0f));
         g.pushTransform();
         g.translate(0, infoRectHeight +25);
         
-            g.draw(chaserInfoRect);
+            g.setLineWidth(4);
+            g.fill(chaserInfoRect);
+            
+            g.setLineWidth(1);
+            chaser.render(g, playerX, playerY, playerWidth, playerHeight);
+            if (chaserMove > 1) {
+                g.setColor(Color.yellow);
+                g.fillRect(moveBarX, moveBarY, moveBarWidth, moveBarHeight);
+            } else {
+                g.setColor(Color.gray);
+                g.fillRect(moveBarX, moveBarY, moveBarWidth*(float)chaserMove, moveBarHeight);
+            }
+            if (chaserAction > 1) {
+                g.setColor(Color.yellow);
+                g.fillRect(actionBarX, actionBarY, actionBarWidth, actionBarHeight);
+            } else {
+                g.setColor(Color.gray);
+                g.fillRect(actionBarX, actionBarY, actionBarWidth*(float)chaserAction, actionBarHeight);
+            }
+            g.setColor(darkBlue);
+            g.drawString("PRESS 't'\nto forfeit", forfeitOffsetX+10, forfeitOffsetY+5);
+            g.setLineWidth(2);
+            g.draw(chaserMoveBar);
+            g.draw(chaserActionBar);
+            g.setColor(Color.blue);
+            g.draw(chaserQuit);
         
         g.popTransform();
     }
     
     public void render(Graphics g, int xOffset, int yOffset) {
-        g.pushTransform();
-        g.translate(650, 64);
-        g.popTransform();
     }
 
 }

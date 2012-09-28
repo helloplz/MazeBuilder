@@ -78,6 +78,16 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
                 chaserJump();
             }
             checkChaserWin();
+        } else if (c == 't') {
+            game.enterState(RunnerWinState.ID);
+        }
+    }
+    
+    @Override
+    public void mouseClicked(int button, int x, int y, int clickCount) {
+        super.mouseClicked(button, x, y, clickCount);
+        if (sidebar.runnerForfeitButtonClicked(x - 650, y - 64)) {
+            game.enterState(ChaserWinState.ID);
         }
     }
 

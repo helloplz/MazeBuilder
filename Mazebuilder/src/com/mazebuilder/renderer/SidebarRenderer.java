@@ -111,9 +111,11 @@ public class SidebarRenderer {
             g.draw(chaserQuit);
         
         g.popTransform();
+        g.setColor(Color.white);
     }
     
-    public void render(Graphics g, int xOffset, int yOffset) {
+    public boolean runnerForfeitButtonClicked(int x, int y) {
+        return x >= runnerQuit.getMinX() && x <= runnerQuit.getMaxX() &&
+               y >= runnerQuit.getMinY() && y <= runnerQuit.getMaxY();
     }
-
 }

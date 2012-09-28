@@ -30,7 +30,7 @@ public class MainMenuState extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        g.drawString("Hello, Mazebuilder! [MainMenu]", 50, 100);
+        g.drawString("The Crate Escape! [MainMenu]", 50, 100);
         g.draw(realTimeMode = new Rectangle(48, 148, 200, 48));
         g.draw(turnBasedMode = new Rectangle(48, 198, 200, 48));
         g.draw(credits = new Rectangle(48, 248, 200, 48));

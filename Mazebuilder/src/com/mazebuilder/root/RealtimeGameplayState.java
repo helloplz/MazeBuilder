@@ -20,15 +20,22 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
 
     static public final int ID = 6;
 
-    private static final int RUNNER_MOVE_MILLIS = 10000;
-    private static final int RUNNER_WALL_MILLIS = 10000;
-    private static final int CHASER_MOVE_MILLIS = 5000;
-    private static final int CHASER_JUMP_MILLIS = 20000;
+    private static final int MAX_RUNNER_MOVE_MILLIS = 5000;
+    private static final int MAX_RUNNER_WALL_MILLIS = 6500;
+    private static final int MAX_CHASER_MOVE_MILLIS = 3000;
+    private static final int MAX_CHASER_JUMP_MILLIS = 25000;
 
-    private int chaserMoveTimer = CHASER_MOVE_MILLIS;
+    private static final int CHASER_INVERSE_SCALING = 10;
+
+    private double RUNNER_MOVE_MILLIS = MAX_RUNNER_MOVE_MILLIS;
+    private double RUNNER_WALL_MILLIS = MAX_RUNNER_WALL_MILLIS;
+    private double CHASER_MOVE_MILLIS = MAX_CHASER_MOVE_MILLIS;
+    private double CHASER_JUMP_MILLIS = MAX_CHASER_JUMP_MILLIS;
+
+    private int chaserMoveTimer = 0;
     private int chaserJumpTimer = 0;
     private int runnerMoveTimer = 0;
-    private int runnerWallTimer = 0;
+    private int runnerWallTimer = (int) RUNNER_WALL_MILLIS;
 
     @Override
     protected RunnerPlayer getRunner() {
@@ -52,6 +59,9 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
         chaserJumpTimer += delta;
         runnerMoveTimer += delta;
         runnerWallTimer += delta;
+
+        CHASER_JUMP_MILLIS -= delta / CHASER_INVERSE_SCALING;
+
         checkRunnerWin();
     }
 
@@ -87,7 +97,7 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
             game.enterState(RunnerWinState.ID);
         }
     }
-    
+
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
         super.mouseClicked(button, x, y, clickCount);
@@ -138,10 +148,8 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
     protected void postRender(GameContainer container, StateBasedGame game, Graphics g) {
         g.pushTransform();
         g.translate(650, 64);
-        sidebar.drawSidebar(g, ((double)runnerMoveTimer)/RUNNER_MOVE_MILLIS,
-                               ((double)runnerWallTimer)/RUNNER_WALL_MILLIS,
-                               ((double)chaserMoveTimer)/CHASER_MOVE_MILLIS,
-                               ((double)chaserJumpTimer)/CHASER_JUMP_MILLIS);
+        sidebar.drawSidebar(g, (runnerMoveTimer) / RUNNER_MOVE_MILLIS, (runnerWallTimer) / RUNNER_WALL_MILLIS,
+                (chaserMoveTimer) / CHASER_MOVE_MILLIS, (chaserJumpTimer) / CHASER_JUMP_MILLIS);
         g.popTransform();
     }
 

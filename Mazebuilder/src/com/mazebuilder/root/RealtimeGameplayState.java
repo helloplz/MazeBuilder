@@ -32,10 +32,19 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
     private double CHASER_MOVE_MILLIS = MAX_CHASER_MOVE_MILLIS;
     private double CHASER_JUMP_MILLIS = MAX_CHASER_JUMP_MILLIS;
 
-    private int chaserMoveTimer = 0;
-    private int chaserJumpTimer = 0;
-    private int runnerMoveTimer = 0;
-    private int runnerWallTimer = (int) RUNNER_WALL_MILLIS;
+    private int chaserMoveTimer;
+    private int chaserJumpTimer;
+    private int runnerMoveTimer;
+    private int runnerWallTimer;
+
+    @Override
+    public void init(GameContainer container, StateBasedGame game) throws SlickException {
+        super.init(container, game);
+        chaserMoveTimer = 0;
+        chaserJumpTimer = 0;
+        runnerMoveTimer = 0;
+        runnerWallTimer = (int) RUNNER_WALL_MILLIS;
+    }
 
     @Override
     protected RunnerPlayer getRunner() {
@@ -103,6 +112,10 @@ public class RealtimeGameplayState extends AbstractMazebuilderGameState {
         super.mouseClicked(button, x, y, clickCount);
         if (sidebar.runnerForfeitButtonClicked(x - 650, y - 64)) {
             game.enterState(ChaserWinState.ID);
+        } else if (sidebar.helpButtonClicked(x - 650, y - 64)) {
+            game.enterState(RealTimeHelpState.ID);
+        } else if (sidebar.quitButtonClicked(x - 650, y - 64)) {
+            game.enterState(MainMenuState.ID);
         }
     }
 

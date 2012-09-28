@@ -39,7 +39,7 @@ public class SidebarRenderer {
     
     static {
         try {
-            mouse = new Image("./assets/Move.jpg");
+            mouse = new Image("./assets/Mouse.png");
             WASD = new Image("./assets/WASD.png");
             destroyBridge = new Image("./assets/DestroyBridge.jpg");
             jumpWater = new Image("./assets/Jump.png");
@@ -72,6 +72,8 @@ public class SidebarRenderer {
     
     public void drawSidebar(Graphics g, double runnerMove, double runnerAction, double chaserMove, double chaserAction) {
         g.setColor(new Color(0.5f, 1.0f, 0.5f));
+        
+        
         
             g.setLineWidth(4);
             g.fill(runnerInfoRect);

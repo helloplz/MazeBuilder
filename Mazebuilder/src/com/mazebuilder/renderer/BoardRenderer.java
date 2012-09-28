@@ -38,6 +38,8 @@ public interface BoardRenderer {
      * Draw the sprite for a corner (the intersection of walls). Width and height are specified by wallWidth() and wallHeight(), respectively.
      */
     void drawCorner(Graphics g, int x, int y);
-
+    
+    void drawBoarder(Graphics g);
+    
     int playerOverfill();
 }

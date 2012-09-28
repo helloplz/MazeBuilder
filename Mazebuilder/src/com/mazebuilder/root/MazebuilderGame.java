@@ -16,7 +16,7 @@ public class MazebuilderGame extends StateBasedGame {
     private Player winner;
 
     public MazebuilderGame() {
-        super("Mazebuilder v0.2");
+        super("Crate Escape v0.2");
     }
 
     @Override

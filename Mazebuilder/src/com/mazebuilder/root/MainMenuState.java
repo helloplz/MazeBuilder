@@ -16,6 +16,7 @@ public class MainMenuState extends BasicGameState {
 
     static public final int ID = 0;
 
+    private GameContainer container;
     private StateBasedGame game;
     private Rectangle realTimeMode;
     private Rectangle turnBasedMode;
@@ -24,6 +25,7 @@ public class MainMenuState extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         this.game = game;
+        this.container = container;
     }
 
     @Override
@@ -45,9 +47,19 @@ public class MainMenuState extends BasicGameState {
     public void mouseClicked(int button, int x, int y, int clickCount) {
         // TODO: "Correct modes on button click"
         if (realTimeMode.contains(x, y)) {
-            game.enterState(RealtimeGameplayState.ID); // RealTimeHelpState.ID);
+            try {
+                game.getState(RealtimeGameplayState.ID).init(container, game);
+            } catch (SlickException e) {
+                throw new RuntimeException(e);
+            }
+            game.enterState(RealTimeHelpState.ID); // RealTimeHelpState.ID);
         }
         if (turnBasedMode.contains(x, y)) {
+            try {
+                game.getState(TurnBasedGameplayState.ID).init(container, game);
+            } catch (SlickException e) {
+                throw new RuntimeException(e);
+            }
             game.enterState(TurnBasedHelpState.ID);
         }
         if (credits.contains(x, y)) {

@@ -97,7 +97,6 @@ public class SidebarRenderer {
             g.setLineWidth(2);
             g.draw(runnerMoveBar);
             g.draw(runnerActionBar);
-            g.setColor(Color.green);
             g.draw(runnerQuit);
             
             g.drawImage(mouse, (moveBarX-3*forfeitOffsetX), moveBarY-1);
@@ -132,15 +131,16 @@ public class SidebarRenderer {
             g.setLineWidth(2);
             g.draw(chaserMoveBar);
             g.draw(chaserActionBar);
-            g.setColor(Color.blue);
             g.draw(chaserQuit);
         
             g.drawImage(WASD, (moveBarX-3*forfeitOffsetX)-30, moveBarY-1);
             g.drawImage(jumpWater,(moveBarX-3*forfeitOffsetX)-20, actionBarY-1);
         g.popTransform();
+        g.setColor(Color.white);
     }
     
-    public void render(Graphics g, int xOffset, int yOffset) {
+    public boolean runnerForfeitButtonClicked(int x, int y) {
+        return x >= runnerQuit.getMinX() && x <= runnerQuit.getMaxX() &&
+               y >= runnerQuit.getMinY() && y <= runnerQuit.getMaxY();
     }
-
 }
